@@ -70,4 +70,9 @@ public class ImageTools
       g2d.dispose();
       return layered;
    }
+   
+   public static BufferedImage getFromSheet(BufferedImage sheet, int x, int y, int tileWidth, int tileHeight)
+   {
+      return null;
+   }
 }

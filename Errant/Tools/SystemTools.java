@@ -25,9 +25,13 @@ public class SystemTools
    {
       try
       {
+         fileName = "/Errant/Resources/" + fileName;
          if(RUNNING_FROM_JAR)
             fileName = "." + fileName;
-         return SystemTools.class.getResource(fileName);
+         URL url = SystemTools.class.getResource(fileName);
+         if(url == null)
+            throw new Exception("Could not find resource: " + fileName);
+         return url;
       } 
       catch(Exception e) 
       {
@@ -38,7 +42,7 @@ public class SystemTools
    
    public static BufferedImage loadImageFromFile(String fileName)
    {
-      fileName += "Resources/Images/";
+      fileName = "Images/" + fileName;
       try
       {
          return ImageIO.read(loadResource(fileName));
@@ -50,13 +54,12 @@ public class SystemTools
       throw new Error("Unable to create image " + fileName);
    }
    
-   public static Clip loadSoundFromFile(String fileName)
+   public static URL getSoundURL(String fileName)
    {
-      fileName += "Resources/Sounds/";
+      fileName = "Sounds/" + fileName;
       try
       {
-         AudioInputStream audioIn = AudioSystem.getAudioInputStream(loadResource(fileName));
-         Clip clip = AudioSystem.getClip();
+         return loadResource(fileName);
       }
       catch(Exception e)
       {
