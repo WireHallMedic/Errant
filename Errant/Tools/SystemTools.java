@@ -6,6 +6,7 @@ import java.net.*;
 import java.util.regex.*;
 import java.io.*;
 import javax.imageio.*;
+import javax.sound.sampled.*;
 
 public class SystemTools
 {
@@ -47,5 +48,20 @@ public class SystemTools
          e.printStackTrace(); 
       }
       throw new Error("Unable to create image " + fileName);
+   }
+   
+   public Clip loadSoundFromFile(String fileName)
+   {
+      fileName += "Resources/Sounds/";
+      try
+      {
+         AudioInputStream audioIn = AudioSystem.getAudioInputStream(loadResource(fileName));
+         Clip clip = AudioSystem.getClip();
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace(); 
+      }
+      throw new Error("Unable to load sound " + fileName);
    }
 }
