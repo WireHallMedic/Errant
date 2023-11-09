@@ -73,6 +73,14 @@ public class ImageTools
    
    public static BufferedImage getFromSheet(BufferedImage sheet, int x, int y, int tileWidth, int tileHeight)
    {
-      return null;
+      try
+      {
+         return sheet.getSubimage(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace(); 
+      }
+      throw new Error("Unable get subimage.");
    }
 }
