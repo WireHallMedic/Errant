@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ErrantFrame extends JFrame
 {
-   public static final int PANEL_WIDTH = 1200;
+   public static final int PANEL_WIDTH = 1600;
    public static final int PANEL_HEIGHT = 900;
    
    public ErrantFrame()
