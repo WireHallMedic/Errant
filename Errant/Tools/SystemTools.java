@@ -1,9 +1,11 @@
 package Errant.Tools;
 
 import java.awt.*;
+import java.awt.image.*;
 import java.net.*;
 import java.util.regex.*;
 import java.io.*;
+import javax.imageio.*;
 
 public class SystemTools
 {
@@ -26,10 +28,24 @@ public class SystemTools
             fileName = "." + fileName;
          return SystemTools.class.getResource(fileName);
       } 
-      catch (Exception e) 
-      { 
+      catch(Exception e) 
+      {
          e.printStackTrace(); 
       }
-      throw new Error("Unable to load file " + fileName);
+      throw new Error("Unable to load resource " + fileName);
+   }
+   
+   public static BufferedImage loadImageFromFile(String fileName)
+   {
+      fileName += "Resources/Images/";
+      try
+      {
+         return ImageIO.read(loadResource(fileName));
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace(); 
+      }
+      throw new Error("Unable to create image " + fileName);
    }
 }
