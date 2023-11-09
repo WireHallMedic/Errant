@@ -50,7 +50,7 @@ public class SystemTools
       throw new Error("Unable to create image " + fileName);
    }
    
-   public Clip loadSoundFromFile(String fileName)
+   public static Clip loadSoundFromFile(String fileName)
    {
       fileName += "Resources/Sounds/";
       try
