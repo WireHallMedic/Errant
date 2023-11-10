@@ -27,6 +27,11 @@ public class ErrantImage
       this(img, DEFAULT_SIZE, DEFAULT_SIZE);
    }
 
+   public ErrantImage(BufferedImage img, int tileSize)
+   {
+      this(img, tileSize, tileSize);
+   }
+
    public ErrantImage(BufferedImage img, int w, int h)
    {
       setImage(img, false);
