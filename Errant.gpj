@@ -12,13 +12,17 @@ s#i0
 s#k0
 s#j0
 s#l0
-!143;g
+!178;g
 %\011Errant%sSound%sSoundPlayer.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
+%\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
-!143;f
+!178;f
 %\011Errant%sSound%sSoundPlayer.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
+%\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
+!47;m
+RunSelect	APPLICATION:Errant.Sound.SoundPlayer

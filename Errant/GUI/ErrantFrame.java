@@ -2,6 +2,8 @@ package Errant.GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import Errant.Tools.*;
+
 
 public class ErrantFrame extends JFrame
 {
