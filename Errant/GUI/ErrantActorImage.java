@@ -39,7 +39,7 @@ public class ErrantActorImage extends ErrantAnimationImage implements GUIConstan
       if(baseImageB != null)
       {
          imageB = ImageTools.scale(baseImageB, width, height);
-         mirroredA = ImageTools.mirrorHorizontal(imageB);
+         mirroredB = ImageTools.mirrorHorizontal(imageB);
       }
    }
    

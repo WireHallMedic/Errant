@@ -40,7 +40,7 @@ public class AnimationManager implements Runnable, GUIConstants
             continue;
          // blinks and pulses are tracked even outside of the run loop
          incrementTicks(millisElapsed);
-         while(runF)
+         if(runF)
          {
          
          }
