@@ -25,10 +25,4 @@ public class ErrantFrame extends JFrame
       setSize(fullWidth, fullHeight);
       this.repaint();
    }
-   
-   public static void main(String[] args)
-   {
-      ErrantFrame frame = new ErrantFrame();
-      System.out.println(frame.getWidth() + ", " + frame.getHeight());
-   }
 }

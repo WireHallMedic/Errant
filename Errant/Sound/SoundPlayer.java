@@ -26,7 +26,6 @@ public class SoundPlayer
    // testing method
    public static void main(String[] args)
    {
-      System.out.println(SystemTools.RUNNING_FROM_JAR);
       URL coinURL = SystemTools.getSoundURL("Test_Coin.wav");
       URL hitURL = SystemTools.getSoundURL("Test_Hit.wav");
       playSound(hitURL);

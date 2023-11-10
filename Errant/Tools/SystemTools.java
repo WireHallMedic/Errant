@@ -3,32 +3,18 @@ package Errant.Tools;
 import java.awt.*;
 import java.awt.image.*;
 import java.net.*;
-import java.util.regex.*;
 import java.io.*;
 import javax.imageio.*;
 import javax.sound.sampled.*;
 
 public class SystemTools
 {
-   public static final boolean RUNNING_FROM_JAR = isRunningFromJar();
-
-   // check if this is running from a .jar or not
-   private static boolean isRunningFromJar()
-   {
-      String str = SystemTools.class.getResource(SystemTools.class.getSimpleName().toString() + ".class").toString();
-      Pattern jarPattern = Pattern.compile("^jar:");
-      Matcher matcher = jarPattern.matcher(str);
-      return matcher.find();
-   }
-   
    public static URL loadResource(String fileName)
    {
       try
       {
-         fileName = "/Errant/Resources/" + fileName;
-         if(RUNNING_FROM_JAR)
-            fileName = "." + fileName;
-         URL url = SystemTools.class.getResource(fileName);
+         fileName = "Errant/Resources/" + fileName;
+         URL url = SystemTools.class.getClassLoader().getResource(fileName);
          if(url == null)
             throw new Exception("Could not find resource: " + fileName);
          return url;

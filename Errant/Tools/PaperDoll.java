@@ -132,9 +132,9 @@ public class PaperDoll extends JPanel implements ActionListener
    
    private void loadStrips()
    {
-      headStrip = SystemTools.loadImageFromFile("Actors/Heads.png");
-      armorStrip = SystemTools.loadImageFromFile("Actors/Armor.png");
-      gearStrip = SystemTools.loadImageFromFile("Actors/Gear.png");
+      headStrip = SystemTools.loadImageFromFile("Actors/paper_doll_heads.png");
+      armorStrip = SystemTools.loadImageFromFile("Actors/paper_doll_bodies.png");
+      gearStrip = SystemTools.loadImageFromFile("Actors/paper_doll_gear.png");
    }
    
    private void generateImage()
