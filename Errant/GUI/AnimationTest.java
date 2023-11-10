@@ -14,7 +14,6 @@ public class AnimationTest extends JPanel implements ActionListener
    
    private ErrantAnimationImage flame;
    private ErrantActorImage actor;
-   private javax.swing.Timer timer;
 
    public AnimationTest()
    {
@@ -30,18 +29,11 @@ public class AnimationTest extends JPanel implements ActionListener
       this.add(controlPanel);
       
       generateImages();
-      
-      timer = new javax.swing.Timer(16, this);
-  //    timer.start();
    }
    
    public void actionPerformed(ActionEvent ae)
    {
-      if(ae.getSource() == timer)
-      {
-         displayPanel.repaint();
-      }
-      else if(ae.getSource() == flipB)
+      if(ae.getSource() == flipB)
       {
          actor.setFacing(!actor.getFacing());
       }
@@ -88,6 +80,6 @@ public class AnimationTest extends JPanel implements ActionListener
       frame.setVisible(true);
       
       AnimationManager am = new AnimationManager();
-      am.addPanel(animationTest);
+      AnimationManager.addPanel(animationTest);
    }
 }

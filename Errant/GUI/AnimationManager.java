@@ -17,7 +17,7 @@ public class AnimationManager implements Runnable, GUIConstants
    private long lastMilli;
    private Thread thread;
    
-   public void addPanel(JPanel p){panelList.add(p);}
+   public static void addPanel(JPanel p){panelList.add(p);}
    
    public AnimationManager()
    {
