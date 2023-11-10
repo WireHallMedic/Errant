@@ -69,7 +69,7 @@ public class ErrantImage
    
    public void paintFromCorner(Graphics2D g2d, int x, int y)
    {
-      paintFromCorner(g2d, x, y);
+      g2d.drawImage(getImage(), x, y, null);
    }
    
 }
