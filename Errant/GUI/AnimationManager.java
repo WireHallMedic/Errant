@@ -1,5 +1,8 @@
 package Errant.GUI;
 
+import java.util.*;
+import javax.swing.*;
+
 public class AnimationManager implements Runnable, GUIConstants
 {
    private static boolean runF;
@@ -9,9 +12,12 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean mediumBlink = false;
    public static boolean fastBlink = false;
    
+   private static Vector<JPanel> panelList = new Vector<JPanel>();
    private int tickIndex;
    private long lastMilli;
    private Thread thread;
+   
+   public void addPanel(JPanel p){panelList.add(p);}
    
    public AnimationManager()
    {
@@ -42,7 +48,11 @@ public class AnimationManager implements Runnable, GUIConstants
          incrementTicks(millisElapsed);
          if(runF)
          {
-         
+            for(JPanel panel : panelList)
+            {
+               if(panel.isVisible())
+                  panel.repaint();
+            }
          }
          lastMilli = curMilli;
          thread.yield();

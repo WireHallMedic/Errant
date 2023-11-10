@@ -32,7 +32,7 @@ public class AnimationTest extends JPanel implements ActionListener
       generateImages();
       
       timer = new javax.swing.Timer(16, this);
-      timer.start();
+  //    timer.start();
    }
    
    public void actionPerformed(ActionEvent ae)
@@ -88,5 +88,6 @@ public class AnimationTest extends JPanel implements ActionListener
       frame.setVisible(true);
       
       AnimationManager am = new AnimationManager();
+      am.addPanel(animationTest);
    }
 }
