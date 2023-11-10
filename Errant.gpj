@@ -13,25 +13,30 @@ s#k0
 s#j0
 s#l0
 !393;u
-a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!318;g
+a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!367;g
 %\011Errant%sGUI%sGUIConstants.java
+%\011Errant%sGUI%sErrantAnimationImage.java
 %\011Errant%sErrantMain.java
+%\011Errant%sGUI%sErrantActorImage.java
 %\011Errant%sSound%sSoundPlayer.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
 %\011Errant%sGUI%sErrantImage.java
 %\011Errant%sGUI%sAnimationManager.java
-%\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
-!318;f
+!367;f
 %\011Errant%sGUI%sGUIConstants.java
+%\011Errant%sGUI%sErrantAnimationImage.java
 %\011Errant%sErrantMain.java
+%\011Errant%sGUI%sErrantActorImage.java
 %\011Errant%sSound%sSoundPlayer.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
 %\011Errant%sGUI%sErrantImage.java
 %\011Errant%sGUI%sAnimationManager.java
-%\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
+!72;l
+%\011Errant%sTools%sPaperDoll.java
+%\011Errant%sGUI%sAnimationTest.java
 !45;m
 RunSelect	APPLICATION:Errant.Tools.PaperDoll
