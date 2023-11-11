@@ -17,7 +17,9 @@ public class AnimationManager implements Runnable, GUIConstants
    private long lastMilli;
    private Thread thread;
    
-   public static void addPanel(JPanel p){panelList.add(p);}
+   public static void addPanel(JPanel p){synchronized(panelList){panelList.add(p);}}
+   
+   public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
    
    public AnimationManager()
    {
@@ -48,10 +50,13 @@ public class AnimationManager implements Runnable, GUIConstants
          incrementTicks(millisElapsed);
          if(runF)
          {
-            for(JPanel panel : panelList)
+            synchronized(panelList)
             {
-               if(panel.isVisible())
-                  panel.repaint();
+               for(JPanel panel : panelList)
+               {
+                  if(panel.isVisible())
+                     panel.repaint();
+               }
             }
          }
          lastMilli = curMilli;
