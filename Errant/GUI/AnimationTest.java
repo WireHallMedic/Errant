@@ -96,7 +96,12 @@ public class AnimationTest extends JPanel implements ActionListener
       }
       else if(ae.getSource() == moveB)
       {
-         bonePosition.add(0, 0, .1, .1);
+         MovementScript script = new MovementScript(bonePosition);
+         script.addStep(100, 1.0, 1.0);
+         script.addStep(100, -1.0, 1.0);
+         script.addStep(100, -1.0, -1.0);
+         script.addStep(100, 1.0, -1.0);
+         script.register();
       }
    }
    
