@@ -67,6 +67,7 @@ public class AnimationTest extends JPanel implements ActionListener
          Graphics2D g2d = (Graphics2D)g;
          flame.paintFromCorner(g2d, 10, 10);
          actor.paintFromCorner(g2d, 10, 116);
+         g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 25);
       }
    }
    
