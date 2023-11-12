@@ -2,8 +2,9 @@ package Errant.GUI;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.util.*;
 
-// holds two buffered images, returns the current one based on a blink
+// holds multiple buffered images, returns the current one based on a blink
 public class ErrantAnimationImage extends ErrantImage implements GUIConstants
 {
    protected BufferedImage imageB;
