@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import Errant.Tools.*;
+import Errant.Map.*;
 
 public class AnimationTest extends JPanel implements ActionListener
 {
@@ -21,6 +22,7 @@ public class AnimationTest extends JPanel implements ActionListener
    private int cornerX;
    
    private ErrantAnimationImage flame;
+   private MapPosition flamePosition;
    private ErrantActorImage actor;
    private VisualEffect loopingEffect;
    private VisualEffect nonLoopingEffect;
