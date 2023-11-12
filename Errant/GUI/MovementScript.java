@@ -12,6 +12,7 @@ public class MovementScript implements GUIConstants, MilliListener
    private MapPosition target;
    private int actionOnEnd;
    private boolean centerOnEnd;
+   private ErrantImage image;
    
    public int getActionOnEnd(){return actionOnEnd;}
    public boolean getCenterOnEnd(){return centerOnEnd;}
@@ -19,9 +20,10 @@ public class MovementScript implements GUIConstants, MilliListener
    public void setActionOnEnd(int aoe){actionOnEnd = aoe;}
    public void setCenterOnEnd(boolean coe){centerOnEnd = coe;}
    
-   public MovementScript(MapPosition t)
+   public MovementScript(ErrantImage img, MapPosition t)
    {
       target = t;
+      image = img;
       stepList = new Vector<MovementStep>();
       stepIndex = 0;
       actionOnEnd = EXPIRE_ON_END;
@@ -43,6 +45,14 @@ public class MovementScript implements GUIConstants, MilliListener
                if(actionOnEnd == LOOP_ON_END)
                {
                   stepIndex = 0;
+               }
+               else if(actionOnEnd == EXPIRE_IMAGE_ON_END)
+               {
+                  if(image instanceof VisualEffect)
+                  {
+                     VisualEffect ve = (VisualEffect)image;
+                     ve.expire();
+                  }
                }
                if(centerOnEnd)
                {

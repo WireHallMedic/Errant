@@ -23,15 +23,18 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
    private JButton boopB;
    private JButton unboopB;
    private JButton fullBoopB;
+   private JButton sparkB;
    private int cornerX;
    private int cornerY;
    
    private ErrantAnimationImage flame;
-   private MapPosition bonePosition;
    private ErrantActorImage actor;
    private MapPosition actorPosition;
+   private MapPosition bonePosition;
+   private MapPosition sparkPosition;
    private VisualEffect loopingEffect;
    private VisualEffect nonLoopingEffect;
+   private VisualEffect spark;
    private Vector<BufferedImage> nonLoopingBase;
    private ErrantImage floorTile;
 
@@ -75,6 +78,10 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       fullBoopB.addActionListener(this);
       fullBoopB.setFocusable(false);
       controlPanel.add(fullBoopB);
+      sparkB = new JButton("Spark");
+      sparkB.addActionListener(this);
+      sparkB.setFocusable(false);
+      controlPanel.add(sparkB);
       controlPanel.add(new JLabel("Arrows for camera, numpad for actor."));
       this.add(controlPanel);
       
@@ -107,7 +114,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       }
       else if(ae.getSource() == moveB)
       {
-         MovementScript script = new MovementScript(bonePosition);
+         MovementScript script = new MovementScript(loopingEffect, bonePosition);
          script.addStep(100, 4.0, 0.0);
          script.addStep(100, 4.0, 4.0);
          script.addStep(100, 0.0, 4.0);
@@ -120,20 +127,27 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       }
       else if(ae.getSource() == boopB)
       {
-         MovementScript script = MovementScriptFactory.getPreAttackScript(actorPosition, Direction.EAST);
+         MovementScript script = MovementScriptFactory.getPreAttackScript(actor, actorPosition, Direction.EAST);
          actor.setFacing(GUIConstants.FACING_RIGHT);
          script.register();
       }
       else if(ae.getSource() == unboopB)
       {
-         MovementScript script = MovementScriptFactory.getPostAttackScript(actorPosition, Direction.EAST);
+         MovementScript script = MovementScriptFactory.getPostAttackScript(actor, actorPosition, Direction.EAST);
          script.register();
       }
       else if(ae.getSource() == fullBoopB)
       {
-         MovementScript script = MovementScriptFactory.getPreAttackScript(actorPosition, Direction.WEST);
-         script.append(MovementScriptFactory.getPostAttackScript(actorPosition, Direction.WEST));
+         MovementScript script = MovementScriptFactory.getPreAttackScript(actor, actorPosition, Direction.WEST);
+         script.append(MovementScriptFactory.getPostAttackScript(actor, actorPosition, Direction.WEST));
          actor.setFacing(GUIConstants.FACING_LEFT);
+         script.register();
+      }
+      else if(ae.getSource() == sparkB)
+      {
+         VisualEffect spark = getProjectile();
+         sparkPosition = new MapPosition(2, 0);
+         MovementScript script = MovementScriptFactory.getProjectileScript(spark, sparkPosition, actorPosition.getXLoc(), actorPosition.getYLoc(), 10.0);
          script.register();
       }
    }
@@ -166,6 +180,20 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       loopingEffect = new VisualEffect(loopingBase, TILE_SIZE);
       loopingEffect.setActionOnEnd(GUIConstants.LOOP_ON_END);
       nonLoopingEffect = null;
+      spark = null;
+   }
+   
+   private VisualEffect getProjectile()
+   {
+      BufferedImage smallEffectSheet = SystemTools.loadImageFromFile("Effects/oryx_effects_24.png");
+      
+      Vector<BufferedImage> base = new Vector<BufferedImage>();
+      base.add(ImageTools.getFromSheet(smallEffectSheet, 0, 7, 24, 24));
+      base.add(ImageTools.getFromSheet(smallEffectSheet, 1, 7, 24, 24));
+      
+      spark = new VisualEffect(base, TILE_SIZE);
+      spark.setActionOnEnd(GUIConstants.LOOP_ON_END);
+      return spark;
    }
    
    public void keyTyped(KeyEvent ke){}
@@ -190,7 +218,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       }
       if(dir != null)
       {
-         MovementScript script = MovementScriptFactory.getStepScript(actorPosition, dir);
+         MovementScript script = MovementScriptFactory.getStepScript(actor, actorPosition, dir);
          actor.setFacing(dir);
          script.register();
       }
@@ -220,6 +248,13 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
                nonLoopingEffect = null;
             else
                nonLoopingEffect.paintAtTile(g2d, 2 - cornerX, cornerY + 3);
+         }
+         if(spark != null)
+         {
+            if(spark.isExpired())
+               spark = null;
+            else
+               spark.paint(g2d, sparkPosition, cornerX, cornerY);
          }
          int colorVal = (int)((128 * AnimationManager.slowPulse) + 127);
          g2d.setColor(new Color(colorVal, colorVal, colorVal));
