@@ -19,10 +19,11 @@ public class AnimationTest extends JPanel implements ActionListener
    private JButton explosionB;
    private JButton leftB;
    private JButton rightB;
+   private JButton moveB;
    private int cornerX;
    
    private ErrantAnimationImage flame;
-   private MapPosition flamePosition;
+   private MapPosition bonePosition;
    private ErrantActorImage actor;
    private VisualEffect loopingEffect;
    private VisualEffect nonLoopingEffect;
@@ -55,10 +56,14 @@ public class AnimationTest extends JPanel implements ActionListener
       rightB = new JButton("Move Right");
       rightB.addActionListener(this);
       controlPanel.add(rightB);
+      moveB = new JButton("Move Bone");
+      moveB.addActionListener(this);
+      controlPanel.add(moveB);
       this.add(controlPanel);
       
       cornerX = 0;
       AnimationManager.setTileSize(TILE_SIZE);
+      bonePosition = new MapPosition(0, 3);
       
       generateImages();
    }
@@ -88,6 +93,10 @@ public class AnimationTest extends JPanel implements ActionListener
       else if(ae.getSource() == rightB)
       {
          cornerX++;
+      }
+      else if(ae.getSource() == moveB)
+      {
+         bonePosition.add(0, 0, .1, .1);
       }
    }
    
@@ -138,7 +147,7 @@ public class AnimationTest extends JPanel implements ActionListener
             floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
          flame.paintAtTile(g2d, 0 - cornerX, 0);
          actor.paintAtTile(g2d, 0 - cornerX, 1);
-         loopingEffect.paintAtTile(g2d, 0 - cornerX, 2);
+         loopingEffect.paint(g2d, bonePosition, cornerX, 0);
          if(nonLoopingEffect != null)
          {
             if(nonLoopingEffect.isExpired())
@@ -146,7 +155,8 @@ public class AnimationTest extends JPanel implements ActionListener
             else
                nonLoopingEffect.paintAtTile(g2d, 0 - cornerX, 3);
          }
-         g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 25);
+         g2d.setColor(Color.WHITE);
+         g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 10);
       }
    }
    

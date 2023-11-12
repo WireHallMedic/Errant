@@ -63,4 +63,13 @@ public class MapPosition
       xOffset = 0.0;
       yOffset = 0.0;
    }
+   
+   public synchronized void add(int x, int y){add(x, y, 0.0, 0.0);}
+   public synchronized void add(int x, int y, double subX, double subY)
+   {
+      xLoc += x;
+      yLoc += y;
+      xOffset += subX;
+      yOffset += subY;
+   }
 }
