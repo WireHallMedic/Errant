@@ -19,4 +19,7 @@ public interface GUIConstants
    
    public static final boolean FACING_LEFT = true;
    public static final boolean FACING_RIGHT = false;
+   
+   public static final int EXPIRE_ON_END = 0;
+   public static final int LOOP_ON_END = 1;
 }

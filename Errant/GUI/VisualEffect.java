@@ -13,20 +13,24 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
 	private int millisPerFrame;
 	private int millisThisFrame;
 	private int curFrame;
+   private int actionOnEnd;
+   private boolean expired;
 
 
 	public int getAnimationSpeed(){return animationSpeed;}
 	public int getMillisPerFrame(){return millisPerFrame;}
 	public int getMillisThisFrame(){return millisThisFrame;}
-	public boolean isExpired(){return curFrame < imageList.size();}
+	public boolean isExpired(){return expired;}
 	public int getCurFrame(){return curFrame;}
+   public int getActionOnEnd(){return actionOnEnd;}
 
 
 	public void setAnimationSpeed(int a){animationSpeed = a;}
 	public void setMillisPerFrame(int m){millisPerFrame = m;}
 	public void setMillisThisFrame(int m){millisThisFrame = m;}
-	public void expire(){curFrame = imageList.size();}
+	public void expire(){expired = true;}
 	public void setCurFrame(int c){curFrame = c;}
+   public void setActionOnEnd(){actionOnEnd = EXPIRE_ON_END;}
 
 
 
@@ -54,6 +58,9 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
       millisPerFrame = mpf;
       millisThisFrame = 0;
       curFrame = 0;
+      actionOnEnd = EXPIRE_ON_END;
+      expired = false;
+      AnimationManager.addListener(this);
    }
 
 	public void setImages(Vector<BufferedImage> imgLst){setImages(imgLst, true);}
@@ -77,7 +84,7 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
    @Override
 	public BufferedImage getImage()
    {
-      if(curFrame < imageList.size())
+      if(!expired)
          return imageList.elementAt(curFrame);
       return null;
    }
@@ -89,6 +96,13 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
       {
          curFrame++;
          millisThisFrame -= millisPerFrame;
+         if(curFrame >= imageList.size())
+         {
+            if(actionOnEnd == LOOP_ON_END)
+               curFrame = 0;
+            else
+               expired = true;
+         }
       }
    }
 }

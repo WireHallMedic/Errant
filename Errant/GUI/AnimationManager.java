@@ -13,6 +13,7 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean fastBlink = false;
    
    private static Vector<JPanel> panelList = new Vector<JPanel>();
+   private static Vector<MilliListener> listenerList = new Vector<MilliListener>();
    private static int cyclesLastSecond = 0;
    private static int cyclesThisSecond = 0;
    private static int secondIndex = 0;
@@ -22,6 +23,8 @@ public class AnimationManager implements Runnable, GUIConstants
    
    public static void addPanel(JPanel p){synchronized(panelList){panelList.add(p);}}
    public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
+   public static void addListener(MilliListener ml){synchronized(listenerList){listenerList.add(ml);}}
+   public static void removeListener(MilliListener ml){synchronized(listenerList){listenerList.remove(ml);}}
    
    public static int getCyclesPerSecond(){return cyclesLastSecond;}
    
@@ -52,6 +55,13 @@ public class AnimationManager implements Runnable, GUIConstants
          incrementTicks(millisElapsed);
          if(runF)
          {
+            synchronized(listenerList)
+            {
+               for(MilliListener listener : listenerList)
+               {
+                  listener.millisElapsed(millisElapsed);
+               }
+            }
             synchronized(panelList)
             {
                for(JPanel panel : panelList)
@@ -60,6 +70,7 @@ public class AnimationManager implements Runnable, GUIConstants
                      panel.repaint();
                }
             }
+            cleanUpListenerList();
          }
          lastMilli = curMilli;
          thread.yield();
@@ -86,6 +97,21 @@ public class AnimationManager implements Runnable, GUIConstants
             mediumBlink = !mediumBlink;
          if(tickIndex % FAST_BLINK_SPEED == 0)
             fastBlink = !fastBlink;
+      }
+   }
+   
+   public static void cleanUpListenerList()
+   {
+      synchronized(listenerList)
+      {
+         for(int i = 0; i < listenerList.size(); i++)
+         {
+            if(listenerList.elementAt(i).isExpired())
+            {
+               listenerList.removeElementAt(i);
+               i--;
+            }
+         }
       }
    }
    
