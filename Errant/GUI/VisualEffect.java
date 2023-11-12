@@ -27,29 +27,30 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
 	public void setMillisThisFrame(int m){millisThisFrame = m;}
 	public void expire(){expired = true;}
 	public void setCurFrame(int c){curFrame = c;}
-   public void setActionOnEnd(){actionOnEnd = EXPIRE_ON_END;}
+   public void setActionOnEnd(int aoe){actionOnEnd = aoe;}
 
 
 
 
    public VisualEffect(Vector<BufferedImage> imgLst)
    {
-      this(imgLst, DEFAULT_SIZE, DEFAULT_SIZE, 200);
+      this(imgLst, DEFAULT_SIZE, DEFAULT_SIZE, DEFAULT_VISUAL_EFFECT_FRAME_DURATION);
    }
 
    public VisualEffect(Vector<BufferedImage> imgLst, int tileSize)
    {
-      this(imgLst, tileSize, tileSize, 200);
+      this(imgLst, tileSize, tileSize, DEFAULT_VISUAL_EFFECT_FRAME_DURATION);
    }
 
    public VisualEffect(Vector<BufferedImage> imgLst, int w, int h)
    {
-      this(imgLst, w, h, 200);
+      this(imgLst, w, h, DEFAULT_VISUAL_EFFECT_FRAME_DURATION);
    }
 
    public VisualEffect(Vector<BufferedImage> imgLst, int w, int h, int mpf)
    {
       super(imgLst.elementAt(0), w, h);
+      setImages(imgLst);
       process();
       millisPerFrame = mpf;
       millisThisFrame = 0;
@@ -72,6 +73,8 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
    @Override
    public void generateImage()
    {
+      if(baseImageList == null)
+         return;
       imageList = new Vector<BufferedImage>();
       for(BufferedImage base : baseImageList)
          imageList.add(ImageTools.scale(base, width, height));
