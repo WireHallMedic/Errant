@@ -179,6 +179,18 @@ public class AnimationTest extends JPanel implements ActionListener
             else
                nonLoopingEffect.paintAtTile(g2d, 0 - cornerX, 3);
          }
+         int colorVal = (int)((128 * AnimationManager.slowPulse) + 127);
+         g2d.setColor(new Color(colorVal, colorVal, colorVal));
+         g2d.fillRect(200, getHeight() - 25, 25, 25);
+         
+         colorVal = (int)((128 * AnimationManager.mediumPulse) + 127);
+         g2d.setColor(new Color(colorVal, colorVal, colorVal));
+         g2d.fillRect(250, getHeight() - 25, 25, 25);
+         
+         colorVal = (int)((128 * AnimationManager.fastPulse) + 127);
+         g2d.setColor(new Color(colorVal, colorVal, colorVal));
+         g2d.fillRect(300, getHeight() - 25, 25, 25);
+         
          g2d.setColor(Color.WHITE);
          g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 10);
       }

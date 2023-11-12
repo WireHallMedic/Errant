@@ -11,6 +11,9 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean slowBlink = false;
    public static boolean mediumBlink = false;
    public static boolean fastBlink = false;
+   public static double slowPulse = 0.0;
+   public static double mediumPulse = 0.0;
+   public static double fastPulse = 0.0;
    private static int tileSize = 32;
    
    private static Vector<JPanel> panelList = new Vector<JPanel>();
@@ -19,6 +22,7 @@ public class AnimationManager implements Runnable, GUIConstants
    private static int cyclesThisSecond = 0;
    private static int secondIndex = 0;
    private int tickIndex;
+   private int pulseIndex;
    private long lastMilli;
    private Thread thread;
    
@@ -101,6 +105,22 @@ public class AnimationManager implements Runnable, GUIConstants
          if(tickIndex % FAST_BLINK_SPEED == 0)
             fastBlink = !fastBlink;
       }
+      // handle pulses
+      pulseIndex += millisElapsed;
+      if(pulseIndex >= TICK_RESET_INDEX)
+         pulseIndex -= TICK_RESET_INDEX;
+      if(slowBlink)
+         slowPulse = (double)(pulseIndex % SLOW_BLINK_SPEED) / SLOW_BLINK_SPEED;
+      else
+         slowPulse = 1.0 - (double)(pulseIndex % SLOW_BLINK_SPEED) / SLOW_BLINK_SPEED;
+      if(mediumBlink)
+         mediumPulse = (double)(pulseIndex % MEDIUM_BLINK_SPEED) / MEDIUM_BLINK_SPEED;
+      else
+         mediumPulse = 1.0 - (double)(pulseIndex % MEDIUM_BLINK_SPEED) / MEDIUM_BLINK_SPEED;
+      if(fastBlink)
+         fastPulse = (double)(pulseIndex % FAST_BLINK_SPEED) / FAST_BLINK_SPEED;
+      else
+         fastPulse = 1.0 - (double)(pulseIndex % FAST_BLINK_SPEED) / FAST_BLINK_SPEED;
    }
    
    public static void cleanUpListenerList()
