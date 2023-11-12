@@ -23,7 +23,7 @@ public class AnimationManager implements Runnable, GUIConstants
    public static void addPanel(JPanel p){synchronized(panelList){panelList.add(p);}}
    public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
    
-   public int getCyclesPerSecond(){return cyclesLastSecond;}
+   public static int getCyclesPerSecond(){return cyclesLastSecond;}
    
    public AnimationManager()
    {
