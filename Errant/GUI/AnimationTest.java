@@ -16,6 +16,9 @@ public class AnimationTest extends JPanel implements ActionListener
    private JButton pauseB;
    private JButton resumeB;
    private JButton explosionB;
+   private JButton leftB;
+   private JButton rightB;
+   private int cornerX;
    
    private ErrantAnimationImage flame;
    private ErrantActorImage actor;
@@ -44,7 +47,16 @@ public class AnimationTest extends JPanel implements ActionListener
       explosionB = new JButton("Explosion");
       explosionB.addActionListener(this);
       controlPanel.add(explosionB);
+      leftB = new JButton("Move Left");
+      leftB.addActionListener(this);
+      controlPanel.add(leftB);
+      rightB = new JButton("Move Right");
+      rightB.addActionListener(this);
+      controlPanel.add(rightB);
       this.add(controlPanel);
+      
+      cornerX = 0;
+      AnimationManager.setTileSize(TILE_SIZE);
       
       generateImages();
    }
@@ -66,6 +78,14 @@ public class AnimationTest extends JPanel implements ActionListener
       else if(ae.getSource() == explosionB)
       {
          nonLoopingEffect = new VisualEffect(nonLoopingBase, TILE_SIZE * 3 / 2);
+      }
+      else if(ae.getSource() == leftB)
+      {
+         cornerX--;
+      }
+      else if(ae.getSource() == rightB)
+      {
+         cornerX++;
       }
    }
    
@@ -114,15 +134,15 @@ public class AnimationTest extends JPanel implements ActionListener
          for(int x = 0; x * TILE_SIZE < getWidth(); x++)
          for(int y = 0; y * TILE_SIZE < getHeight(); y++)
             floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
-         flame.paintFromCorner(g2d, 10, 10);
-         actor.paintFromCorner(g2d, 10, 85);
-         loopingEffect.paintFromCorner(g2d, 10, 160);
+         flame.paintAtTile(g2d, 0 - cornerX, 0);
+         actor.paintAtTile(g2d, 0 - cornerX, 1);
+         loopingEffect.paintAtTile(g2d, 0 - cornerX, 2);
          if(nonLoopingEffect != null)
          {
             if(nonLoopingEffect.isExpired())
                nonLoopingEffect = null;
             else
-               nonLoopingEffect.paintFromCorner(g2d, 10, 235);
+               nonLoopingEffect.paintAtTile(g2d, 0 - cornerX, 3);
          }
          g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 25);
       }

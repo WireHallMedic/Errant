@@ -11,6 +11,7 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean slowBlink = false;
    public static boolean mediumBlink = false;
    public static boolean fastBlink = false;
+   private static int tileSize = 32;
    
    private static Vector<JPanel> panelList = new Vector<JPanel>();
    private static Vector<MilliListener> listenerList = new Vector<MilliListener>();
@@ -25,8 +26,10 @@ public class AnimationManager implements Runnable, GUIConstants
    public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
    public static void addListener(MilliListener ml){synchronized(listenerList){listenerList.add(ml);}}
    public static void removeListener(MilliListener ml){synchronized(listenerList){listenerList.remove(ml);}}
+   public static void setTileSize(int ts){tileSize = ts;}
    
    public static int getCyclesPerSecond(){return cyclesLastSecond;}
+   public static int getTileSize(){return tileSize;}
    
    
    public static void start()

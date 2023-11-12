@@ -77,4 +77,12 @@ public class ErrantImage
       g2d.drawImage(getImage(), x, y, null);
    }
    
+   public void paintAtTile(Graphics2D g2d, int xTile, int yTile)
+   {
+      int tileSize = AnimationManager.getTileSize();
+      int xPos = (xTile * tileSize) + (tileSize / 2);
+      int yPos = (yTile * tileSize) + (tileSize / 2);
+      paint(g2d, xPos, yPos);
+   }
+   
 }
