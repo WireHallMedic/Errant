@@ -23,5 +23,4 @@ public interface GUIConstants
    
    public static final int EXPIRE_ON_END = 0;
    public static final int LOOP_ON_END = 1;
-   public static final int EXPIRE_TARGET_ON_END = 2;
 }

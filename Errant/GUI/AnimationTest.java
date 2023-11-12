@@ -20,11 +20,13 @@ public class AnimationTest extends JPanel implements ActionListener
    private JButton leftB;
    private JButton rightB;
    private JButton moveB;
+   private JButton boopB;
    private int cornerX;
    
    private ErrantAnimationImage flame;
    private MapPosition bonePosition;
    private ErrantActorImage actor;
+   private MapPosition actorPosition;
    private VisualEffect loopingEffect;
    private VisualEffect nonLoopingEffect;
    private Vector<BufferedImage> nonLoopingBase;
@@ -59,11 +61,15 @@ public class AnimationTest extends JPanel implements ActionListener
       moveB = new JButton("Move Bone");
       moveB.addActionListener(this);
       controlPanel.add(moveB);
+      boopB = new JButton("Boop");
+      boopB.addActionListener(this);
+      controlPanel.add(boopB);
       this.add(controlPanel);
       
       cornerX = 0;
       AnimationManager.setTileSize(TILE_SIZE);
       bonePosition = new MapPosition(0, 2);
+      actorPosition = new MapPosition(0, 1);
       
       generateImages();
    }
@@ -97,14 +103,23 @@ public class AnimationTest extends JPanel implements ActionListener
       else if(ae.getSource() == moveB)
       {
          MovementScript script = new MovementScript(bonePosition);
-         script.addStep(100, 2.0, 0.0);
-         script.addStep(100, 2.0, 2.0);
-         script.addStep(100, 0.0, 2.0);
-         script.addStep(100, -2.0, 2.0);
-         script.addStep(100, -2.0, 0.0);
-         script.addStep(100, -2.0, -2.0);
-         script.addStep(100, 0.0, -2.0);
-         script.addStep(100, 2.0, -2.0);
+         script.addStep(100, 4.0, 0.0);
+         script.addStep(100, 4.0, 4.0);
+         script.addStep(100, 0.0, 4.0);
+         script.addStep(100, -4.0, 4.0);
+         script.addStep(100, -4.0, 0.0);
+         script.addStep(100, -4.0, -4.0);
+         script.addStep(100, 0.0, -4.0);
+         script.addStep(100, 4.0, -4.0);
+         script.register();
+      }
+      else if(ae.getSource() == boopB)
+      {
+         MovementScript script = new MovementScript(actorPosition);
+         script.addStep(75, -3.0, 0.0);
+         script.addStep(150, 6.0, 0.0);
+         script.addStep(225, -3.0, 0.0);
+         actor.setFacing(GUIConstants.FACING_RIGHT);
          script.register();
       }
    }
@@ -155,7 +170,7 @@ public class AnimationTest extends JPanel implements ActionListener
          for(int y = 0; y * TILE_SIZE < getHeight(); y++)
             floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
          flame.paintAtTile(g2d, 0 - cornerX, 0);
-         actor.paintAtTile(g2d, 0 - cornerX, 1);
+         actor.paint(g2d, actorPosition, cornerX, 0);
          loopingEffect.paint(g2d, bonePosition, cornerX, 0);
          if(nonLoopingEffect != null)
          {
