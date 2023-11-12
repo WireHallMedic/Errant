@@ -9,6 +9,7 @@ import Errant.Tools.*;
 
 public class AnimationTest extends JPanel implements ActionListener
 {
+   private static final int TILE_SIZE = 72;
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
    private JButton flipB;
@@ -21,6 +22,7 @@ public class AnimationTest extends JPanel implements ActionListener
    private VisualEffect loopingEffect;
    private VisualEffect nonLoopingEffect;
    private Vector<BufferedImage> nonLoopingBase;
+   private ErrantImage floorTile;
 
    public AnimationTest()
    {
@@ -63,7 +65,7 @@ public class AnimationTest extends JPanel implements ActionListener
       }
       else if(ae.getSource() == explosionB)
       {
-         nonLoopingEffect = new VisualEffect(nonLoopingBase, 72);
+         nonLoopingEffect = new VisualEffect(nonLoopingBase, TILE_SIZE * 3 / 2);
       }
    }
    
@@ -79,9 +81,10 @@ public class AnimationTest extends JPanel implements ActionListener
       BufferedImage actor0 = ImageTools.getFromSheet(actorSheet, 0, 0, 24, 24);
       BufferedImage actor1 = ImageTools.getFromSheet(actorSheet, 0, 1, 24, 24);
    
-      flame = new ErrantAnimationImage(flame0, flame1, 72);
+      flame = new ErrantAnimationImage(flame0, flame1, TILE_SIZE);
       flame.setAnimationSpeed(GUIConstants.FAST_ANIMATION_SPEED);
-      actor = new ErrantActorImage(actor0, actor1, 72);
+      actor = new ErrantActorImage(actor0, actor1, TILE_SIZE);
+      floorTile = new ErrantImage(ImageTools.getFromSheet(terrainSheet, 3, 0, 24, 24), TILE_SIZE);
       
       Vector<BufferedImage> loopingBase = new Vector<BufferedImage>();
       nonLoopingBase = new Vector<BufferedImage>();
@@ -91,7 +94,7 @@ public class AnimationTest extends JPanel implements ActionListener
          nonLoopingBase.add(ImageTools.getFromSheet(largeEffectSheet, 2 + i, 10, 32, 32));
       }
       
-      loopingEffect = new VisualEffect(loopingBase, 72);
+      loopingEffect = new VisualEffect(loopingBase, TILE_SIZE);
       loopingEffect.setActionOnEnd(GUIConstants.LOOP_ON_END);
       nonLoopingEffect = null;
    }
@@ -108,6 +111,9 @@ public class AnimationTest extends JPanel implements ActionListener
       {
          super.paint(g);
          Graphics2D g2d = (Graphics2D)g;
+         for(int x = 0; x * TILE_SIZE < getWidth(); x++)
+         for(int y = 0; y * TILE_SIZE < getHeight(); y++)
+            floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
          flame.paintFromCorner(g2d, 10, 10);
          actor.paintFromCorner(g2d, 10, 85);
          loopingEffect.paintFromCorner(g2d, 10, 160);
@@ -126,7 +132,8 @@ public class AnimationTest extends JPanel implements ActionListener
    {
       JFrame frame = new JFrame();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setSize(500, 500);
+      frame.setSize(800, 500);
+      frame.setLocation(50, 50);
       AnimationTest animationTest = new AnimationTest();
       frame.add(animationTest);
       frame.setVisible(true);
