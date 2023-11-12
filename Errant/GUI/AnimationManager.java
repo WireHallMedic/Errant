@@ -13,13 +13,17 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean fastBlink = false;
    
    private static Vector<JPanel> panelList = new Vector<JPanel>();
+   private static int cyclesLastSecond = 0;
+   private static int cyclesThisSecond = 0;
+   private static int secondIndex = 0;
    private int tickIndex;
    private long lastMilli;
    private Thread thread;
    
    public static void addPanel(JPanel p){synchronized(panelList){panelList.add(p);}}
-   
    public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
+   
+   public int getCyclesPerSecond(){return cyclesLastSecond;}
    
    public AnimationManager()
    {
@@ -46,6 +50,7 @@ public class AnimationManager implements Runnable, GUIConstants
          // loop around if less than a millisecond has elapsed
          if(millisElapsed == 0)
             continue;
+         cyclesThisSecond++;
          // blinks and pulses are tracked even outside of the run loop
          incrementTicks(millisElapsed);
          if(runF)
@@ -66,6 +71,13 @@ public class AnimationManager implements Runnable, GUIConstants
    
    private void incrementTicks(int millisElapsed)
    {
+      secondIndex += millisElapsed;
+      if(secondIndex >= 1000)
+      {
+         cyclesLastSecond = cyclesThisSecond;
+         cyclesThisSecond = 0;
+         secondIndex -= 1000;
+      }
       for(int i = 0; i < millisElapsed; i++)
       {
          tickIndex++;
