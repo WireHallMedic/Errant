@@ -14,12 +14,13 @@ s#k0
 s#j0
 s#l0
 !393;u
-a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1630;g
+a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1675;g
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
 %\011%uWidlerSuite%sNoiseChoir.java
 %\011%uWidlerSuite%sShadowFoV.java
+%\011Errant%sGUI%sMovementScriptFactory.java
 %\011Errant%sGUI%sGUIConstants.java
 %\011%uWidlerSuite%sNoiseObj.java
 %\011%uWidlerSuite%sAStarNode.java
@@ -60,12 +61,13 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sWSTools.java
 %\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
-!1630;f
+!1675;f
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
 %\011%uWidlerSuite%sNoiseChoir.java
 %\011%uWidlerSuite%sShadowFoV.java
+%\011Errant%sGUI%sMovementScriptFactory.java
 %\011Errant%sGUI%sGUIConstants.java
 %\011%uWidlerSuite%sNoiseObj.java
 %\011%uWidlerSuite%sAStarNode.java
