@@ -9,7 +9,6 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
 {
    protected Vector<BufferedImage> imageList;
    protected Vector<BufferedImage> baseImageList;
-	private int animationSpeed;
 	private int millisPerFrame;
 	private int millisThisFrame;
 	private int curFrame;
@@ -17,7 +16,6 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
    private boolean expired;
 
 
-	public int getAnimationSpeed(){return animationSpeed;}
 	public int getMillisPerFrame(){return millisPerFrame;}
 	public int getMillisThisFrame(){return millisThisFrame;}
 	public boolean isExpired(){return expired;}
@@ -25,7 +23,6 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
    public int getActionOnEnd(){return actionOnEnd;}
 
 
-	public void setAnimationSpeed(int a){animationSpeed = a;}
 	public void setMillisPerFrame(int m){millisPerFrame = m;}
 	public void setMillisThisFrame(int m){millisThisFrame = m;}
 	public void expire(){expired = true;}
@@ -37,24 +34,23 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
 
    public VisualEffect(Vector<BufferedImage> imgLst)
    {
-      this(imgLst, DEFAULT_SIZE, DEFAULT_SIZE, VERY_FAST_ANIMATION_SPEED, 200);
+      this(imgLst, DEFAULT_SIZE, DEFAULT_SIZE, 200);
    }
 
    public VisualEffect(Vector<BufferedImage> imgLst, int tileSize)
    {
-      this(imgLst, tileSize, tileSize, VERY_FAST_ANIMATION_SPEED, 200);
+      this(imgLst, tileSize, tileSize, 200);
    }
 
    public VisualEffect(Vector<BufferedImage> imgLst, int w, int h)
    {
-      this(imgLst, w, h, VERY_FAST_ANIMATION_SPEED, 200);
+      this(imgLst, w, h, 200);
    }
 
-   public VisualEffect(Vector<BufferedImage> imgLst, int w, int h, int as, int mpf)
+   public VisualEffect(Vector<BufferedImage> imgLst, int w, int h, int mpf)
    {
       super(imgLst.elementAt(0), w, h);
       process();
-      animationSpeed = as;
       millisPerFrame = mpf;
       millisThisFrame = 0;
       curFrame = 0;
