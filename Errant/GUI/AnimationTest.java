@@ -8,7 +8,7 @@ import java.awt.image.*;
 import Errant.Tools.*;
 import Errant.Map.*;
 
-public class AnimationTest extends JPanel implements ActionListener
+public class AnimationTest extends JPanel implements ActionListener, KeyListener
 {
    private static final int TILE_SIZE = 72;
    private DisplayPanel displayPanel;
@@ -21,7 +21,10 @@ public class AnimationTest extends JPanel implements ActionListener
    private JButton rightB;
    private JButton moveB;
    private JButton boopB;
+   private JButton unboopB;
+   private JButton fullBoopB;
    private int cornerX;
+   private int cornerY;
    
    private ErrantAnimationImage flame;
    private MapPosition bonePosition;
@@ -39,37 +42,47 @@ public class AnimationTest extends JPanel implements ActionListener
       displayPanel = new DisplayPanel();
       this.add(displayPanel);
       controlPanel = new JPanel();
-      controlPanel.setLayout(new GridLayout(8, 1));
+      controlPanel.setLayout(new GridLayout(10, 1));
       flipB = new JButton("Flip");
       flipB.addActionListener(this);
+      flipB.setFocusable(false);
       controlPanel.add(flipB);
       pauseB = new JButton("Pause");
       pauseB.addActionListener(this);
+      pauseB.setFocusable(false);
       controlPanel.add(pauseB);
       resumeB = new JButton("Resume");
       resumeB.addActionListener(this);
+      resumeB.setFocusable(false);
       controlPanel.add(resumeB);
       explosionB = new JButton("Explosion");
       explosionB.addActionListener(this);
+      explosionB.setFocusable(false);
       controlPanel.add(explosionB);
-      leftB = new JButton("Move Left");
-      leftB.addActionListener(this);
-      controlPanel.add(leftB);
-      rightB = new JButton("Move Right");
-      rightB.addActionListener(this);
-      controlPanel.add(rightB);
       moveB = new JButton("Move Bone");
       moveB.addActionListener(this);
+      moveB.setFocusable(false);
       controlPanel.add(moveB);
       boopB = new JButton("Boop");
       boopB.addActionListener(this);
+      boopB.setFocusable(false);
       controlPanel.add(boopB);
+      unboopB = new JButton("Unboop");
+      unboopB.addActionListener(this);
+      unboopB.setFocusable(false);
+      controlPanel.add(unboopB);
+      fullBoopB = new JButton("Full Boop");
+      fullBoopB.addActionListener(this);
+      fullBoopB.setFocusable(false);
+      controlPanel.add(fullBoopB);
+      controlPanel.add(new JLabel("Arrows for camera, numpad for actor."));
       this.add(controlPanel);
       
       cornerX = 0;
+      cornerY = 0;
       AnimationManager.setTileSize(TILE_SIZE);
-      bonePosition = new MapPosition(0, 2);
-      actorPosition = new MapPosition(0, 1);
+      bonePosition = new MapPosition(2, 2);
+      actorPosition = new MapPosition(2, 1);
       
       generateImages();
    }
@@ -92,14 +105,6 @@ public class AnimationTest extends JPanel implements ActionListener
       {
          nonLoopingEffect = new VisualEffect(nonLoopingBase, TILE_SIZE * 3 / 2);
       }
-      else if(ae.getSource() == leftB)
-      {
-         cornerX--;
-      }
-      else if(ae.getSource() == rightB)
-      {
-         cornerX++;
-      }
       else if(ae.getSource() == moveB)
       {
          MovementScript script = new MovementScript(bonePosition);
@@ -115,11 +120,20 @@ public class AnimationTest extends JPanel implements ActionListener
       }
       else if(ae.getSource() == boopB)
       {
-         MovementScript script = new MovementScript(actorPosition);
-         script.addStep(75, -3.0, 0.0);
-         script.addStep(150, 6.0, 0.0);
-         script.addStep(225, -3.0, 0.0);
+         MovementScript script = MovementScriptFactory.getPreAttackScript(actorPosition, Direction.EAST);
          actor.setFacing(GUIConstants.FACING_RIGHT);
+         script.register();
+      }
+      else if(ae.getSource() == unboopB)
+      {
+         MovementScript script = MovementScriptFactory.getPostAttackScript(actorPosition, Direction.EAST);
+         script.register();
+      }
+      else if(ae.getSource() == fullBoopB)
+      {
+         MovementScript script = MovementScriptFactory.getPreAttackScript(actorPosition, Direction.WEST);
+         script.append(MovementScriptFactory.getPostAttackScript(actorPosition, Direction.WEST));
+         actor.setFacing(GUIConstants.FACING_LEFT);
          script.register();
       }
    }
@@ -153,6 +167,34 @@ public class AnimationTest extends JPanel implements ActionListener
       loopingEffect.setActionOnEnd(GUIConstants.LOOP_ON_END);
       nonLoopingEffect = null;
    }
+   
+   public void keyTyped(KeyEvent ke){}
+   public void keyReleased(KeyEvent ke){}
+   public void keyPressed(KeyEvent ke)
+   {
+      Direction dir = null;
+      switch(ke.getKeyCode())
+      {
+         case KeyEvent.VK_NUMPAD1 : dir = Direction.SOUTHWEST; break;
+         case KeyEvent.VK_NUMPAD2 : dir = Direction.SOUTH; break;
+         case KeyEvent.VK_NUMPAD3 : dir = Direction.SOUTHEAST; break;
+         case KeyEvent.VK_NUMPAD4 : dir = Direction.WEST; break;
+         case KeyEvent.VK_NUMPAD6 : dir = Direction.EAST; break;
+         case KeyEvent.VK_NUMPAD7 : dir = Direction.NORTHWEST; break;
+         case KeyEvent.VK_NUMPAD8 : dir = Direction.NORTH; break;
+         case KeyEvent.VK_NUMPAD9 : dir = Direction.NORTHEAST; break;
+         case KeyEvent.VK_UP :      cornerY--; break;
+         case KeyEvent.VK_DOWN :    cornerY++; break;
+         case KeyEvent.VK_LEFT :    cornerX--; break;
+         case KeyEvent.VK_RIGHT :   cornerX++; break;
+      }
+      if(dir != null)
+      {
+         MovementScript script = MovementScriptFactory.getStepScript(actorPosition, dir);
+         actor.setFacing(dir);
+         script.register();
+      }
+   }
       
    private class DisplayPanel extends JPanel
    {
@@ -169,15 +211,15 @@ public class AnimationTest extends JPanel implements ActionListener
          for(int x = 0; x * TILE_SIZE < getWidth(); x++)
          for(int y = 0; y * TILE_SIZE < getHeight(); y++)
             floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
-         flame.paintAtTile(g2d, 0 - cornerX, 0);
-         actor.paint(g2d, actorPosition, cornerX, 0);
-         loopingEffect.paint(g2d, bonePosition, cornerX, 0);
+         flame.paintAtTile(g2d, 2 - cornerX, 0 - cornerY);
+         actor.paint(g2d, actorPosition, cornerX, cornerY);
+         loopingEffect.paint(g2d, bonePosition, cornerX, cornerY);
          if(nonLoopingEffect != null)
          {
             if(nonLoopingEffect.isExpired())
                nonLoopingEffect = null;
             else
-               nonLoopingEffect.paintAtTile(g2d, 0 - cornerX, 3);
+               nonLoopingEffect.paintAtTile(g2d, 2 - cornerX, cornerY + 3);
          }
          int colorVal = (int)((128 * AnimationManager.slowPulse) + 127);
          g2d.setColor(new Color(colorVal, colorVal, colorVal));
@@ -205,6 +247,8 @@ public class AnimationTest extends JPanel implements ActionListener
       AnimationTest animationTest = new AnimationTest();
       frame.add(animationTest);
       frame.setVisible(true);
+      
+      frame.addKeyListener(animationTest);
       
       AnimationManager.addPanel(animationTest);
       AnimationManager.start();

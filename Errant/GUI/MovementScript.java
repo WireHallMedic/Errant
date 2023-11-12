@@ -55,6 +55,14 @@ public class MovementScript implements GUIConstants, MilliListener
       }
    }
    
+   public void append(MovementScript that)
+   {
+      for(MovementStep step : that.stepList)
+      {
+         addStep(step);
+      }
+   }
+   
    public boolean isExpired()
    {
       return stepIndex >= stepList.size();
@@ -63,6 +71,11 @@ public class MovementScript implements GUIConstants, MilliListener
    public void addStep(int duration, double xSpeed, double ySpeed)
    {
       stepList.add(new MovementStep(duration, xSpeed, ySpeed));
+   }
+   
+   public void addStep(MovementStep step)
+   {
+      addStep(step.getRemainingDuration(), step.getXSpeed(), step.getYSpeed());
    }
    
    public void register()

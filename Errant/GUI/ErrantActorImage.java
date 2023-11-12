@@ -2,6 +2,7 @@ package Errant.GUI;
 
 import java.awt.*;
 import java.awt.image.*;
+import Errant.Tools.*;
 
 // holds two buffered images, and another two that are mirrors of the same
 public class ErrantActorImage extends ErrantAnimationImage implements GUIConstants
@@ -29,6 +30,19 @@ public class ErrantActorImage extends ErrantAnimationImage implements GUIConstan
    {
       super(imgA, imgB, w, h);
       facing = FACING_LEFT;
+   }
+   
+   public void setFacing(Direction dir)
+   {
+      switch(dir)
+      {
+         case EAST :
+         case NORTHEAST :
+         case SOUTHEAST : facing = FACING_RIGHT; break;
+         case WEST :
+         case NORTHWEST :
+         case SOUTHWEST : facing = FACING_LEFT; break;
+      }
    }
    
    @Override
