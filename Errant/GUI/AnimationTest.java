@@ -11,6 +11,8 @@ public class AnimationTest extends JPanel implements ActionListener
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
    private JButton flipB;
+   private JButton pauseB;
+   private JButton resumeB;
    
    private ErrantAnimationImage flame;
    private ErrantActorImage actor;
@@ -22,10 +24,16 @@ public class AnimationTest extends JPanel implements ActionListener
       displayPanel = new DisplayPanel();
       this.add(displayPanel);
       controlPanel = new JPanel();
-      controlPanel.setLayout(new GridLayout(5, 1));
+      controlPanel.setLayout(new GridLayout(8, 1));
       flipB = new JButton("Flip");
       flipB.addActionListener(this);
       controlPanel.add(flipB);
+      pauseB = new JButton("Pause");
+      pauseB.addActionListener(this);
+      controlPanel.add(pauseB);
+      resumeB = new JButton("Resume");
+      resumeB.addActionListener(this);
+      controlPanel.add(resumeB);
       this.add(controlPanel);
       
       generateImages();
@@ -36,6 +44,14 @@ public class AnimationTest extends JPanel implements ActionListener
       if(ae.getSource() == flipB)
       {
          actor.setFacing(!actor.getFacing());
+      }
+      else if(ae.getSource() == pauseB)
+      {
+         AnimationManager.pause();
+      }
+      else if(ae.getSource() == resumeB)
+      {
+         AnimationManager.resume();
       }
    }
    
@@ -80,7 +96,7 @@ public class AnimationTest extends JPanel implements ActionListener
       frame.add(animationTest);
       frame.setVisible(true);
       
-      AnimationManager am = new AnimationManager();
       AnimationManager.addPanel(animationTest);
+      AnimationManager.start();
    }
 }

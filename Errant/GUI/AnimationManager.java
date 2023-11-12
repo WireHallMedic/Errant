@@ -25,17 +25,14 @@ public class AnimationManager implements Runnable, GUIConstants
    
    public static int getCyclesPerSecond(){return cyclesLastSecond;}
    
-   public AnimationManager()
-   {
-      start();
-   }
    
-   public void start()
+   public static void start()
    {
+      AnimationManager am = new AnimationManager();
       terminateF = false;
       runF = true;
-      thread = new Thread(this);
-      thread.start();
+      am.thread = new Thread(am);
+      am.thread.start();
    }
 
    public void run()
