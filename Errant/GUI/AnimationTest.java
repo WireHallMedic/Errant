@@ -63,7 +63,7 @@ public class AnimationTest extends JPanel implements ActionListener
       
       cornerX = 0;
       AnimationManager.setTileSize(TILE_SIZE);
-      bonePosition = new MapPosition(0, 3);
+      bonePosition = new MapPosition(0, 2);
       
       generateImages();
    }
@@ -97,10 +97,14 @@ public class AnimationTest extends JPanel implements ActionListener
       else if(ae.getSource() == moveB)
       {
          MovementScript script = new MovementScript(bonePosition);
-         script.addStep(100, 1.0, 1.0);
-         script.addStep(100, -1.0, 1.0);
-         script.addStep(100, -1.0, -1.0);
-         script.addStep(100, 1.0, -1.0);
+         script.addStep(100, 2.0, 0.0);
+         script.addStep(100, 2.0, 2.0);
+         script.addStep(100, 0.0, 2.0);
+         script.addStep(100, -2.0, 2.0);
+         script.addStep(100, -2.0, 0.0);
+         script.addStep(100, -2.0, -2.0);
+         script.addStep(100, 0.0, -2.0);
+         script.addStep(100, 2.0, -2.0);
          script.register();
       }
    }
