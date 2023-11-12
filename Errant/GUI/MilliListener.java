@@ -5,4 +5,5 @@ package Errant.GUI;
 public interface MilliListener
 {
    public abstract void millisElapsed(int me);
+   public abstract boolean isExpired();
 }
