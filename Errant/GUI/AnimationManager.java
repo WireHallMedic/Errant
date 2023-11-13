@@ -198,6 +198,13 @@ public class AnimationManager implements Runnable, GUIConstants
       }
    }
    
+   public static void clearListenerLists()
+   {
+      synchronized(lockingList){lockingList.clear();}
+      synchronized(nonlockingList){nonlockingList.clear();}
+      synchronized(semilockingList){semilockingList.clear();}
+   }
+   
    public static void terminate()
    {
       terminateF = true;

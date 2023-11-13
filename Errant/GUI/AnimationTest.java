@@ -111,7 +111,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       }
       else if(ae.getSource() == explosionB)
       {
-         nonLoopingEffect = new VisualEffect(nonLoopingBase, TILE_SIZE * 3 / 2);
+         nonLoopingEffect = new VisualEffect(nonLoopingBase, TILE_SIZE * 3);
       }
       else if(ae.getSource() == moveB)
       {
