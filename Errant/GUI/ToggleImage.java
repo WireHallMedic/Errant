@@ -12,10 +12,11 @@ public class ToggleImage extends ErrantImage implements GUIConstants
 	private boolean state;
 
 
-	public boolean isState(){return state;}
+	public boolean gettate(){return state;}
 
 
 	public void setState(boolean s){state = s;}
+   public void toggle(){state = !state;}
 
 
    public ToggleImage(BufferedImage imgA, BufferedImage imgB)

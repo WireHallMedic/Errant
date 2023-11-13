@@ -37,6 +37,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
    private VisualEffect spark;
    private Vector<BufferedImage> nonLoopingBase;
    private ErrantImage floorTile;
+   private ToggleImage doorTile;
 
    public AnimationTest()
    {
@@ -46,7 +47,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       this.add(displayPanel);
       controlPanel = new JPanel();
       controlPanel.setLayout(new GridLayout(10, 1));
-      flipB = new JButton("Flip");
+      flipB = new JButton("Toggle Door");
       flipB.addActionListener(this);
       flipB.setFocusable(false);
       controlPanel.add(flipB);
@@ -98,7 +99,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
    {
       if(ae.getSource() == flipB)
       {
-         actor.setFacing(!actor.getFacing());
+         doorTile.toggle();
       }
       else if(ae.getSource() == pauseB)
       {
@@ -163,11 +164,14 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       BufferedImage flame1 = ImageTools.getFromSheet(terrainSheet, 39, 0, 24, 24);
       BufferedImage actor0 = ImageTools.getFromSheet(actorSheet, 0, 0, 24, 24);
       BufferedImage actor1 = ImageTools.getFromSheet(actorSheet, 0, 1, 24, 24);
+      BufferedImage closedDoor = ImageTools.getFromSheet(terrainSheet, 28, 2, 24, 24);
+      BufferedImage openDoor = ImageTools.getFromSheet(terrainSheet, 29, 2, 24, 24);
    
       flame = new AnimationImage(flame0, flame1, TILE_SIZE);
       flame.setAnimationSpeed(GUIConstants.FAST_ANIMATION_SPEED);
       actor = new ActorImage(actor0, actor1, TILE_SIZE);
       floorTile = new ErrantImage(ImageTools.getFromSheet(terrainSheet, 3, 0, 24, 24), TILE_SIZE);
+      doorTile = new ToggleImage(closedDoor, openDoor, TILE_SIZE);
       
       Vector<BufferedImage> loopingBase = new Vector<BufferedImage>();
       nonLoopingBase = new Vector<BufferedImage>();
@@ -241,6 +245,7 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
             floorTile.paintFromCorner(g2d, x * TILE_SIZE, y * TILE_SIZE);
          flame.paintAtTile(g2d, 2 - cornerX, 0 - cornerY);
          actor.paint(g2d, actorPosition, cornerX, cornerY);
+         doorTile.paintAtTile(g2d, 2 - cornerX, 4 - cornerY);
          loopingEffect.paint(g2d, bonePosition, cornerX, cornerY);
          if(nonLoopingEffect != null)
          {
@@ -256,6 +261,8 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
             else
                spark.paint(g2d, sparkPosition, cornerX, cornerY);
          }
+         
+         // pulses
          int colorVal = (int)((128 * AnimationManager.slowPulse) + 127);
          g2d.setColor(new Color(colorVal, colorVal, colorVal));
          g2d.fillRect(200, getHeight() - 25, 25, 25);
