@@ -2,10 +2,11 @@ package Errant.GUI;
 
 import java.awt.*;
 import java.awt.image.*;
+import Errant.Tools.*;
 
-public class ImageTools
+public class ImageTools implements ToolConstants
 {
-
+   
    // return a copy scaled to passed size
    public static BufferedImage scale(BufferedImage original, int newWidth, int newHeight)
    {
@@ -71,6 +72,7 @@ public class ImageTools
       return layered;
    }
    
+   // return a tile from a spritesheet
    public static BufferedImage getFromSheet(BufferedImage sheet, int x, int y, int tileWidth, int tileHeight)
    {
       try
@@ -82,5 +84,18 @@ public class ImageTools
          e.printStackTrace(); 
       }
       throw new Error("Unable get subimage.");
+   }
+   
+   // returns a rotated copy of an image. May result in clipping. Angle is in radians.
+   public static BufferedImage rotate(BufferedImage img, double angle)
+   {
+      int w = img.getWidth();    
+      int h = img.getHeight();
+      BufferedImage rotated = new BufferedImage(w, h, img.getType());  
+      Graphics2D graphic = rotated.createGraphics();
+      graphic.rotate(angle, w / 2, h / 2);
+      graphic.drawImage(img, null, 0, 0);
+      graphic.dispose();
+      return rotated;
    }
 }

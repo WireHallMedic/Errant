@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !393;u
-a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1698;g
+a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1737;g
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
@@ -49,6 +49,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sAStar.java
 %\011%uWidlerSuite%sCoord.java
 %\011%uWidlerSuite%sStraightLine.java
+%\011Errant%sTools%sToolConstants.java
 %\011Errant%sErrantMain.java
 %\011%uWidlerSuite%sVoronoi.java
 %\011%uWidlerSuite%sSmoothCA.java
@@ -62,7 +63,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sWSTools.java
 %\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
-!1698;f
+!1737;f
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
@@ -97,6 +98,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sAStar.java
 %\011%uWidlerSuite%sCoord.java
 %\011%uWidlerSuite%sStraightLine.java
+%\011Errant%sTools%sToolConstants.java
 %\011Errant%sErrantMain.java
 %\011%uWidlerSuite%sVoronoi.java
 %\011%uWidlerSuite%sSmoothCA.java
