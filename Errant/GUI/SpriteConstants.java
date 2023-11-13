@@ -92,7 +92,36 @@ public interface SpriteConstants
       
       public int[][] sheetLocation;
       
-      private PaperDollHeadSprite(int x, int y)
+      private PaperDollGearSprite(int x, int y)
+      {
+         sheetLocation = new int[2][2];
+         sheetLocation[0][0] = x;
+         sheetLocation[0][1] = y;
+         sheetLocation[1][0] = x;
+         sheetLocation[1][1] = y + 1;
+      }
+   }
+   
+   public enum CreatureSprite
+   {
+      ZOMBIE               (0, 16),
+      SKELETON             (2, 16),
+      SKELETON_ARCHER      (3, 16),
+      SKELETON_WARRIOR     (4, 16),
+      SHADOW               (5, 16),
+      GHOST                (6, 16),
+      MUMMY                (7, 16),
+      SKELETON_MAGE        (9, 16),
+      LICH                 (10, 16),
+      WOLF                 (14, 12),
+      RAT                  (8, 12),
+      SPIDER               (5, 12),
+      SCORPION             (2, 12),
+      BAT                  (11, 18);
+      
+      public int[][] sheetLocation;
+      
+      private CreatureSprite(int x, int y)
       {
          sheetLocation = new int[2][2];
          sheetLocation[0][0] = x;
