@@ -5,7 +5,7 @@ import java.awt.image.*;
 import Errant.Tools.*;
 
 // holds two buffered images, and another two that are mirrors of the same
-public class ErrantActorImage extends ErrantAnimationImage implements GUIConstants
+public class ActorImage extends AnimationImage implements GUIConstants
 {
    protected BufferedImage mirroredA;
    protected BufferedImage mirroredB;
@@ -16,17 +16,17 @@ public class ErrantActorImage extends ErrantAnimationImage implements GUIConstan
    public void setFacing(boolean f){facing = f;}
 
 
-   public ErrantActorImage(BufferedImage imgA, BufferedImage imgB)
+   public ActorImage(BufferedImage imgA, BufferedImage imgB)
    {
       this(imgA, imgB, DEFAULT_SIZE, DEFAULT_SIZE);
    }
 
-   public ErrantActorImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
+   public ActorImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
    {
       this(imgA, imgB, tileSize, tileSize);
    }
 
-   public ErrantActorImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
+   public ActorImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
    {
       super(imgA, imgB, w, h);
       facing = FACING_LEFT;

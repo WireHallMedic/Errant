@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !393;u
-a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1716;g
+a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_bodies.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_gear.png\011%\\011Errant%sResources%sImages%sActors%spaper_doll_heads.png	f%\011PaperDoll.jar	g%\011Errant.zip	hManifest-Version\0111.0\011Main-Class\011Errant.Tools.PaperDoll	iErrant.Tools.PaperDoll!1698;g
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
@@ -27,9 +27,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sDijkstraMap.java
 %\011Errant%sGUI%sMovementScript.java
 %\011%uWidlerSuite%sFloodFill.java
-%\011Errant%sGUI%sErrantActorImage.java
 %\011Errant%sGUI%sMilliListener.java
-%\011Errant%sGUI%sErrantAnimationImage.java
 %\011%uWidlerSuite%sRoom.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
@@ -38,6 +36,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sObfuscator.java
 %\011%uWidlerSuite%sLineIntersection.java
 %\011Errant%sTools%sDirection.java
+%\011Errant%sGUI%sToggleImage.java
 %\011Errant%sGUI%sMovementStep.java
 %\011Errant%sGUI%sAnimationManager.java
 %\011%uWidlerSuite%sSquirrelRNG.java
@@ -45,7 +44,8 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sVect.java
 %\011Errant%sGUI%sAnimationTest.java
 %\011%uWidlerSuite%sRectLine.java
-%\011Errant%sGUI%sErrantToggleImage.java
+%\011Errant%sGUI%sAnimationImage.java
+%\011Errant%sGUI%sActorImage.java
 %\011%uWidlerSuite%sAStar.java
 %\011%uWidlerSuite%sCoord.java
 %\011%uWidlerSuite%sStraightLine.java
@@ -62,7 +62,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sWSTools.java
 %\011Errant%sTools%sPaperDoll.java
 %\011Errant%sTools%sSystemTools.java
-!1716;f
+!1698;f
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011Errant%sGUI%sErrantImage.java
 %\011%uWidlerSuite%sBinarySpacePartitioning.java
@@ -75,9 +75,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sDijkstraMap.java
 %\011Errant%sGUI%sMovementScript.java
 %\011%uWidlerSuite%sFloodFill.java
-%\011Errant%sGUI%sErrantActorImage.java
 %\011Errant%sGUI%sMilliListener.java
-%\011Errant%sGUI%sErrantAnimationImage.java
 %\011%uWidlerSuite%sRoom.java
 %\011Errant%sGUI%sErrantFrame.java
 %\011Errant%sGUI%sImageTools.java
@@ -86,6 +84,7 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sObfuscator.java
 %\011%uWidlerSuite%sLineIntersection.java
 %\011Errant%sTools%sDirection.java
+%\011Errant%sGUI%sToggleImage.java
 %\011Errant%sGUI%sMovementStep.java
 %\011Errant%sGUI%sAnimationManager.java
 %\011%uWidlerSuite%sSquirrelRNG.java
@@ -93,7 +92,8 @@ a0	b68	c255	d%\\011Errant%sResources%sImages%sActors%soryx_creatures.png\011%\\0
 %\011%uWidlerSuite%sVect.java
 %\011Errant%sGUI%sAnimationTest.java
 %\011%uWidlerSuite%sRectLine.java
-%\011Errant%sGUI%sErrantToggleImage.java
+%\011Errant%sGUI%sAnimationImage.java
+%\011Errant%sGUI%sActorImage.java
 %\011%uWidlerSuite%sAStar.java
 %\011%uWidlerSuite%sCoord.java
 %\011%uWidlerSuite%sStraightLine.java

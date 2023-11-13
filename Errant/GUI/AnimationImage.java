@@ -5,7 +5,7 @@ import java.awt.image.*;
 import java.util.*;
 
 // holds multiple buffered images, returns the current one based on a blink
-public class ErrantAnimationImage extends ErrantImage implements GUIConstants
+public class AnimationImage extends ErrantImage implements GUIConstants
 {
    protected BufferedImage imageB;
    protected BufferedImage baseImageB;
@@ -16,17 +16,17 @@ public class ErrantAnimationImage extends ErrantImage implements GUIConstants
    public void setAnimationSpeed(int as){animationSpeed = as;}
 
 
-   public ErrantAnimationImage(BufferedImage imgA, BufferedImage imgB)
+   public AnimationImage(BufferedImage imgA, BufferedImage imgB)
    {
       this(imgA, imgB, DEFAULT_SIZE, DEFAULT_SIZE);
    }
 
-   public ErrantAnimationImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
+   public AnimationImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
    {
       this(imgA, imgB, tileSize, tileSize);
    }
 
-   public ErrantAnimationImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
+   public AnimationImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
    {
       super(imgA, w, h);
       baseImageB = imgB;

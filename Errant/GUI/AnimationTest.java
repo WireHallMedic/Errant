@@ -27,8 +27,8 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
    private int cornerX;
    private int cornerY;
    
-   private ErrantAnimationImage flame;
-   private ErrantActorImage actor;
+   private AnimationImage flame;
+   private ActorImage actor;
    private MapPosition actorPosition;
    private MapPosition bonePosition;
    private MapPosition sparkPosition;
@@ -164,9 +164,9 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
       BufferedImage actor0 = ImageTools.getFromSheet(actorSheet, 0, 0, 24, 24);
       BufferedImage actor1 = ImageTools.getFromSheet(actorSheet, 0, 1, 24, 24);
    
-      flame = new ErrantAnimationImage(flame0, flame1, TILE_SIZE);
+      flame = new AnimationImage(flame0, flame1, TILE_SIZE);
       flame.setAnimationSpeed(GUIConstants.FAST_ANIMATION_SPEED);
-      actor = new ErrantActorImage(actor0, actor1, TILE_SIZE);
+      actor = new ActorImage(actor0, actor1, TILE_SIZE);
       floorTile = new ErrantImage(ImageTools.getFromSheet(terrainSheet, 3, 0, 24, 24), TILE_SIZE);
       
       Vector<BufferedImage> loopingBase = new Vector<BufferedImage>();

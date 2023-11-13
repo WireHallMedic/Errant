@@ -5,7 +5,7 @@ import java.awt.image.*;
 import java.util.*;
 
 // holds multiple buffered images, returns the current one based on a blink
-public class ErrantToggleImage extends ErrantImage implements GUIConstants
+public class ToggleImage extends ErrantImage implements GUIConstants
 {
    protected BufferedImage imageB;
    protected BufferedImage baseImageB;
@@ -18,17 +18,17 @@ public class ErrantToggleImage extends ErrantImage implements GUIConstants
 	public void setState(boolean s){state = s;}
 
 
-   public ErrantToggleImage(BufferedImage imgA, BufferedImage imgB)
+   public ToggleImage(BufferedImage imgA, BufferedImage imgB)
    {
       this(imgA, imgB, DEFAULT_SIZE, DEFAULT_SIZE);
    }
 
-   public ErrantToggleImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
+   public ToggleImage(BufferedImage imgA, BufferedImage imgB, int tileSize)
    {
       this(imgA, imgB, tileSize, tileSize);
    }
 
-   public ErrantToggleImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
+   public ToggleImage(BufferedImage imgA, BufferedImage imgB, int w, int h)
    {
       super(imgA, w, h);
       baseImageB = imgB;
