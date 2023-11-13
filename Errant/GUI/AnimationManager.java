@@ -208,7 +208,8 @@ public class AnimationManager implements Runnable, GUIConstants
    public static void terminate()
    {
       terminateF = true;
-      runF = true;
+      runF = true; // to allow us to terminate even if paused
+      clearListenerLists();
    }
    
    public static void pause()
