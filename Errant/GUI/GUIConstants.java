@@ -24,4 +24,9 @@ public interface GUIConstants
    public static final int EXPIRE_ON_END = 0;
    public static final int LOOP_ON_END = 1;
    public static final int EXPIRE_IMAGE_ON_END = 2;
+   
+   // movement script types
+   public static final int LOCKING = 0;
+   public static final int NONLOCKING = 1;
+   public static final int SEMILOCKING = 2;
 }

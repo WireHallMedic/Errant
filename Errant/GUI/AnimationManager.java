@@ -17,7 +17,9 @@ public class AnimationManager implements Runnable, GUIConstants
    private static int tileSize = 32;
    
    private static Vector<JPanel> panelList = new Vector<JPanel>();
-   private static Vector<MilliListener> listenerList = new Vector<MilliListener>();
+   private static Vector<MilliListener> lockingList = new Vector<MilliListener>();
+   private static Vector<MilliListener> nonlockingList = new Vector<MilliListener>();
+   private static Vector<MilliListener> semilockingList = new Vector<MilliListener>();
    private static int cyclesLastSecond = 0;
    private static int cyclesThisSecond = 0;
    private static int secondIndex = 0;
@@ -28,8 +30,6 @@ public class AnimationManager implements Runnable, GUIConstants
    
    public static void addPanel(JPanel p){synchronized(panelList){panelList.add(p);}}
    public static void removePanel(JPanel p){synchronized(panelList){panelList.remove(p);}}
-   public static void addListener(MilliListener ml){synchronized(listenerList){listenerList.add(ml);}}
-   public static void removeListener(MilliListener ml){synchronized(listenerList){listenerList.remove(ml);}}
    public static void setTileSize(int ts){tileSize = ts;}
    
    public static int getCyclesPerSecond(){return cyclesLastSecond;}
@@ -44,6 +44,26 @@ public class AnimationManager implements Runnable, GUIConstants
       am.thread = new Thread(am);
       am.thread.start();
    }
+   
+   public static void addListener(MilliListener m){addListener(m, LOCKING);}
+   public static void addListener(MilliListener ml, int lockType)
+   {
+      switch(lockType)
+      {
+         case LOCKING   :     synchronized(lockingList){lockingList.add(ml);} break;
+         case NONLOCKING :    synchronized(nonlockingList){nonlockingList.add(ml);} break;
+         case SEMILOCKING :   synchronized(semilockingList){semilockingList.add(ml);} break;
+      }
+   }
+   
+   
+   public static void removeListener(MilliListener ml)
+   {
+      synchronized(lockingList){lockingList.remove(ml);}
+      synchronized(nonlockingList){nonlockingList.remove(ml);}
+      synchronized(semilockingList){semilockingList.remove(ml);}
+   }
+
 
    public void run()
    {
@@ -62,9 +82,23 @@ public class AnimationManager implements Runnable, GUIConstants
          incrementTicks(millisElapsed);
          if(runF)
          {
-            synchronized(listenerList)
+            synchronized(lockingList)
             {
-               for(MilliListener listener : listenerList)
+               for(MilliListener listener : lockingList)
+               {
+                  listener.millisElapsed(millisElapsed);
+               }
+            }
+            synchronized(nonlockingList)
+            {
+               for(MilliListener listener : nonlockingList)
+               {
+                  listener.millisElapsed(millisElapsed);
+               }
+            }
+            synchronized(semilockingList)
+            {
+               for(MilliListener listener : semilockingList)
                {
                   listener.millisElapsed(millisElapsed);
                }
@@ -77,7 +111,7 @@ public class AnimationManager implements Runnable, GUIConstants
                      panel.repaint();
                }
             }
-            cleanUpListenerList();
+            cleanUpListenerLists();
          }
          lastMilli = curMilli;
          thread.yield();
@@ -86,6 +120,7 @@ public class AnimationManager implements Runnable, GUIConstants
    
    private void incrementTicks(int millisElapsed)
    {
+      // track second
       secondIndex += millisElapsed;
       if(secondIndex >= 1000)
       {
@@ -93,6 +128,7 @@ public class AnimationManager implements Runnable, GUIConstants
          cyclesThisSecond = 0;
          secondIndex -= 1000;
       }
+      // handle blinks
       for(int i = 0; i < millisElapsed; i++)
       {
          tickIndex++;
@@ -123,15 +159,22 @@ public class AnimationManager implements Runnable, GUIConstants
          fastPulse = 1.0 - (double)(pulseIndex % FAST_BLINK_SPEED) / FAST_BLINK_SPEED;
    }
    
-   public static void cleanUpListenerList()
+   public static void cleanUpListenerLists()
    {
-      synchronized(listenerList)
+      cleanUpListenerList(lockingList);
+      cleanUpListenerList(nonlockingList);
+      cleanUpListenerList(semilockingList);
+   }
+   
+   private static void cleanUpListenerList(Vector<MilliListener> list)
+   {
+      synchronized(list)
       {
-         for(int i = 0; i < listenerList.size(); i++)
+         for(int i = 0; i < list.size(); i++)
          {
-            if(listenerList.elementAt(i).isExpired())
+            if(list.elementAt(i).isExpired())
             {
-               listenerList.removeElementAt(i);
+               list.removeElementAt(i);
                i--;
             }
          }
