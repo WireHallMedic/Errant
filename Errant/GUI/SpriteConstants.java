@@ -11,4 +11,40 @@ public interface SpriteConstants
    public static final String TERRAIN_FILE = "Terrain/oryx_terrain.png";
    public static final String ITEM_FILE = "Items/oryx_items.png";
    public static final String GOLD_FILE = "Items/coins.png";
+   
+   public enum GoldSprite
+   {
+      SINGLE_COIN       (0, 0),
+      SMALL_PILE        (1, 0),
+      MEDIUM_PILE       (2, 0),
+      LARGE_PILE        (3, 0),
+      VERY_LARGE_PILE   (4, 0);
+      
+      public int[] sheetLocation;
+      
+      private GoldSprite(int x, int y)
+      {
+         sheetLocation = new int[2];
+         sheetLocation[0] = x;
+         sheetLocation[1] = y;
+      }
+   }
+   
+   public enum PaperDollBodySprite
+   {
+      CLOTHES  (0, 0),
+      ROBES    (1, 0),
+      ARMOR    (2, 0);
+      
+      public int[][] sheetLocation;
+      
+      private PaperDollBodySprite(int x, int y)
+      {
+         sheetLocation = new int[2][2];
+         sheetLocation[0][0] = x;
+         sheetLocation[0][1] = y;
+         sheetLocation[1][0] = x;
+         sheetLocation[1][1] = y + 1;
+      }
+   }
 }
