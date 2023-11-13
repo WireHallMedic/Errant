@@ -57,7 +57,7 @@ public class VisualEffect extends ErrantImage implements GUIConstants, MilliList
       curFrame = 0;
       actionOnEnd = EXPIRE_ON_END;
       expired = false;
-      AnimationManager.addListener(this);
+      AnimationManager.addListener(this, NONLOCKING);
    }
 
 	public void setImages(Vector<BufferedImage> imgLst){setImages(imgLst, true);}

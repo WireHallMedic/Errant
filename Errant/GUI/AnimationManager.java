@@ -56,6 +56,23 @@ public class AnimationManager implements Runnable, GUIConstants
       }
    }
    
+   public static boolean isAnimationLocked()
+   {
+      return lockingList.size() > 0;
+   }
+   
+   public static boolean isAnimationSemilocked()
+   {
+      return (semilockingList.size() > 0) || isAnimationLocked();
+   }
+   
+   public static String lockingStatus()
+   {
+      return "L:" + lockingList.size() + ", " +
+             "SL:" + semilockingList.size() + ", " +
+             "NL:" + nonlockingList.size();
+   }
+   
    
    public static void removeListener(MilliListener ml)
    {
@@ -159,7 +176,7 @@ public class AnimationManager implements Runnable, GUIConstants
          fastPulse = 1.0 - (double)(pulseIndex % FAST_BLINK_SPEED) / FAST_BLINK_SPEED;
    }
    
-   public static void cleanUpListenerLists()
+   private static void cleanUpListenerLists()
    {
       cleanUpListenerList(lockingList);
       cleanUpListenerList(nonlockingList);

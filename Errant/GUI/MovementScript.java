@@ -88,8 +88,9 @@ public class MovementScript implements GUIConstants, MilliListener
       addStep(step.getRemainingDuration(), step.getXSpeed(), step.getYSpeed());
    }
    
-   public void register()
+   public void register(){register(LOCKING);}
+   public void register(int lockType)
    {
-      AnimationManager.addListener(this);
+      AnimationManager.addListener(this, lockType);
    }
 }

@@ -8,7 +8,7 @@ import java.awt.image.*;
 import Errant.Tools.*;
 import Errant.Map.*;
 
-public class AnimationTest extends JPanel implements ActionListener, KeyListener
+public class AnimationTest extends JPanel implements ActionListener, KeyListener, GUIConstants
 {
    private static final int TILE_SIZE = 72;
    private DisplayPanel displayPanel;
@@ -124,32 +124,32 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
          script.addStep(100, -4.0, -4.0);
          script.addStep(100, 0.0, -4.0);
          script.addStep(100, 4.0, -4.0);
-         script.register();
+         script.register(NONLOCKING);
       }
       else if(ae.getSource() == boopB)
       {
          MovementScript script = MovementScriptFactory.getPreAttackScript(actor, actorPosition, Direction.EAST);
          actor.setFacing(GUIConstants.FACING_RIGHT);
-         script.register();
+         script.register(LOCKING);
       }
       else if(ae.getSource() == unboopB)
       {
          MovementScript script = MovementScriptFactory.getPostAttackScript(actor, actorPosition, Direction.EAST);
-         script.register();
+         script.register(LOCKING);
       }
       else if(ae.getSource() == fullBoopB)
       {
          MovementScript script = MovementScriptFactory.getPreAttackScript(actor, actorPosition, Direction.WEST);
          script.append(MovementScriptFactory.getPostAttackScript(actor, actorPosition, Direction.WEST));
          actor.setFacing(GUIConstants.FACING_LEFT);
-         script.register();
+         script.register(LOCKING);
       }
       else if(ae.getSource() == sparkB)
       {
          VisualEffect spark = getProjectile();
          sparkPosition = new MapPosition(2, 0);
          MovementScript script = MovementScriptFactory.getProjectileScript(spark, sparkPosition, actorPosition.getXLoc(), actorPosition.getYLoc(), 10.0);
-         script.register();
+         script.register(LOCKING);
       }
    }
    
@@ -220,11 +220,11 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
          case KeyEvent.VK_LEFT :    cornerX--; break;
          case KeyEvent.VK_RIGHT :   cornerX++; break;
       }
-      if(dir != null)
+      if(dir != null && !AnimationManager.isAnimationSemilocked())
       {
          MovementScript script = MovementScriptFactory.getStepScript(actor, actorPosition, dir);
          actor.setFacing(dir);
-         script.register();
+         script.register(SEMILOCKING);
       }
    }
       
@@ -277,6 +277,9 @@ public class AnimationTest extends JPanel implements ActionListener, KeyListener
          
          g2d.setColor(Color.WHITE);
          g2d.drawString("Cycles per second: " + AnimationManager.getCyclesPerSecond(), 10, getHeight() - 10);
+         g2d.drawString("Locked: " + AnimationManager.isAnimationLocked(), 10, getHeight() - 30);
+         g2d.drawString("Semilocked: " + AnimationManager.isAnimationSemilocked(), 100, getHeight() - 30);
+         g2d.drawString(AnimationManager.lockingStatus(), 250, getHeight() - 30);
       }
    }
    
