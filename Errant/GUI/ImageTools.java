@@ -61,6 +61,17 @@ public class ImageTools implements ToolConstants
       return newImg;
    }
    
+   public static BufferedImage replaceColor(BufferedImage img, Color[] oldGroup, Color[] newGroup)
+   {
+      BufferedImage newImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+      Graphics2D g2d = newImage.createGraphics();
+      g2d.drawImage(img, 0, 0, null);
+      g2d.dispose();
+      for(int i = 0; i < oldGroup.length; i++)
+         newImage = replaceColor(newImage, oldGroup[i].getRGB(), newGroup[i].getRGB());
+      return newImage;
+   }
+   
    // returns a copy with upper layered over lower
    public static BufferedImage overlay(BufferedImage lower, BufferedImage upper)
    {
