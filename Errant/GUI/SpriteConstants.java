@@ -24,12 +24,14 @@ public interface SpriteConstants
       VERY_LARGE_PILE   (4, 0);
       
       public int[] sheetLocation;
+      public String fileName;
       
       private GoldSprite(int x, int y)
       {
          sheetLocation = new int[2];
          sheetLocation[0] = x;
          sheetLocation[1] = y;
+         fileName = GOLD_FILE;
       }
    }
    
@@ -40,6 +42,7 @@ public interface SpriteConstants
       ARMOR    (2, 0);
       
       public int[][] sheetLocation;
+      public String fileName;
       
       private PaperDollBodySprite(int x, int y)
       {
@@ -48,6 +51,7 @@ public interface SpriteConstants
          sheetLocation[0][1] = y;
          sheetLocation[1][0] = x;
          sheetLocation[1][1] = y + 1;
+         fileName = PAPER_DOLL_BODY_FILE;
       }
    }
    
@@ -59,6 +63,7 @@ public interface SpriteConstants
       HEAVY_HELMET   (3, 0);
       
       public int[][] sheetLocation;
+      public String fileName;
       
       private PaperDollHeadSprite(int x, int y)
       {
@@ -67,6 +72,7 @@ public interface SpriteConstants
          sheetLocation[0][1] = y;
          sheetLocation[1][0] = x;
          sheetLocation[1][1] = y + 1;
+         fileName = PAPER_DOLL_HEAD_FILE;
       }
    }
    
@@ -94,6 +100,7 @@ public interface SpriteConstants
       ORB            (7, 2);
       
       public int[][] sheetLocation;
+      public String fileName;
       
       private PaperDollGearSprite(int x, int y)
       {
@@ -102,57 +109,60 @@ public interface SpriteConstants
          sheetLocation[0][1] = y;
          sheetLocation[1][0] = x;
          sheetLocation[1][1] = y + 1;
+         fileName = PAPER_DOLL_GEAR_FILE;
       }
    }
    
    public enum CreatureSprite
    {
       // undead
-      ZOMBIE               (0, 0),
-      SKELETON_GRUNT       (1, 0),
-      SKELETON_ARCHER      (2, 0),
-      SKELETON_WARRIOR     (3, 0),
-      SKELETON_MAGE        (4, 0),
-      SHADOW               (5, 0),
-      GHOST                (6, 0),
-      MUMMY                (7, 0),
-      LICH                 (8, 0),
-      DEATH_KNIGHT         (9, 0),
+      ZOMBIE               (0, 0, UNDEAD_FILE),
+      SKELETON_GRUNT       (1, 0, UNDEAD_FILE),
+      SKELETON_ARCHER      (2, 0, UNDEAD_FILE),
+      SKELETON_WARRIOR     (3, 0, UNDEAD_FILE),
+      SKELETON_MAGE        (4, 0, UNDEAD_FILE),
+      SHADOW               (5, 0, UNDEAD_FILE),
+      GHOST                (6, 0, UNDEAD_FILE),
+      MUMMY                (7, 0, UNDEAD_FILE),
+      LICH                 (8, 0, UNDEAD_FILE),
+      DEATH_KNIGHT         (9, 0, UNDEAD_FILE),
       
       // human
-      CULTIST_GRUNT        (0, 0),
-      CULT_WIZARD          (1, 0),
-      CULT_ASSASSIN        (2, 0),
-      CULT_BRUTE           (3, 0),
+      CULTIST_GRUNT        (0, 0, CULTIST_FILE),
+      CULT_WIZARD          (1, 0, CULTIST_FILE),
+      CULT_ASSASSIN        (2, 0, CULTIST_FILE),
+      CULT_BRUTE           (3, 0, CULTIST_FILE),
       
       // demon
-      LESSER_DEMON_GRUNT   (0, 0),
-      LESSER_DEMON_WARRIOR (1, 0),
-      LESSER_DEMON_WARLOCK (2, 0),
-      LESSER_DEMON_BRUTE   (3, 0),
-      GREATER_DEMON        (4, 0),
-      DEMON_BRUTE          (5, 0),
-      DEMON_WATCHER        (6, 0),
-      DEMON_WORM           (7, 0),
-      AMORPHOUS_DEMON      (8, 0),
-      DRAGON               (9, 0),
+      LESSER_DEMON_GRUNT   (0, 0, DEMON_FILE),
+      LESSER_DEMON_WARRIOR (1, 0, DEMON_FILE),
+      LESSER_DEMON_WARLOCK (2, 0, DEMON_FILE),
+      LESSER_DEMON_BRUTE   (3, 0, DEMON_FILE),
+      GREATER_DEMON        (4, 0, DEMON_FILE),
+      DEMON_BRUTE          (5, 0, DEMON_FILE),
+      DEMON_WATCHER        (6, 0, DEMON_FILE),
+      DEMON_WORM           (7, 0, DEMON_FILE),
+      AMORPHOUS_DEMON      (8, 0, DEMON_FILE),
+      DRAGON               (9, 0, DEMON_FILE),
 
       // animal
-      RAT                  (0, 0),
-      SPIDER               (1, 0),
-      BAT                  (2, 0),
-      WOLF                 (3, 0),
-      SCORPION             (4, 0);
+      RAT                  (0, 0, ANIMAL_FILE),
+      SPIDER               (1, 0, ANIMAL_FILE),
+      BAT                  (2, 0, ANIMAL_FILE),
+      WOLF                 (3, 0, ANIMAL_FILE),
+      SCORPION             (4, 0, ANIMAL_FILE);
       
       public int[][] sheetLocation;
+      public String fileName;
       
-      private CreatureSprite(int x, int y)
+      private CreatureSprite(int x, int y, String fn)
       {
          sheetLocation = new int[2][2];
          sheetLocation[0][0] = x;
          sheetLocation[0][1] = y;
          sheetLocation[1][0] = x;
          sheetLocation[1][1] = y + 1;
+         fileName = fn;
       }
    }
 }
