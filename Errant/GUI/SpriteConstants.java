@@ -7,7 +7,10 @@ public interface SpriteConstants
    public static final String PAPER_DOLL_GEAR_FILE = "Actors/paper_doll_gear.png";
    public static final String SMALL_EFFECT_FILE = "Effects/oryx_effects_24.png";
    public static final String LARGE_EFFECT_FILE = "Effects/oryx_effects_32.png";
-   public static final String CREATURE_FILE = "Actors/oryx_creatures.png";
+   public static final String UNDEAD_FILE = "Actors/undead.png";
+   public static final String CULTIST_FILE = "Actors/cultists.png";
+   public static final String ANIMAL_FILE = "Actors/animals.png";
+   public static final String DEMON_FILE = "Actors/demons.png";
    public static final String TERRAIN_FILE = "Terrain/oryx_terrain.png";
    public static final String ITEM_FILE = "Items/oryx_items.png";
    public static final String GOLD_FILE = "Items/coins.png";
@@ -104,20 +107,42 @@ public interface SpriteConstants
    
    public enum CreatureSprite
    {
-      ZOMBIE               (0, 16),
-      SKELETON             (2, 16),
-      SKELETON_ARCHER      (3, 16),
-      SKELETON_WARRIOR     (4, 16),
-      SHADOW               (5, 16),
-      GHOST                (6, 16),
-      MUMMY                (7, 16),
-      SKELETON_MAGE        (9, 16),
-      LICH                 (10, 16),
-      WOLF                 (14, 12),
-      RAT                  (8, 12),
-      SPIDER               (5, 12),
-      SCORPION             (2, 12),
-      BAT                  (11, 18);
+      // undead
+      ZOMBIE               (0, 0),
+      SKELETON_GRUNT       (1, 0),
+      SKELETON_ARCHER      (2, 0),
+      SKELETON_WARRIOR     (3, 0),
+      SKELETON_MAGE        (4, 0),
+      SHADOW               (5, 0),
+      GHOST                (6, 0),
+      MUMMY                (7, 0),
+      LICH                 (8, 0),
+      DEATH_KNIGHT         (9, 0),
+      
+      // human
+      CULTIST_GRUNT        (0, 0),
+      CULT_WIZARD          (1, 0),
+      CULT_ASSASSIN        (2, 0),
+      CULT_BRUTE           (3, 0),
+      
+      // demon
+      LESSER_DEMON_GRUNT   (0, 0),
+      LESSER_DEMON_WARRIOR (1, 0),
+      LESSER_DEMON_WARLOCK (2, 0),
+      LESSER_DEMON_BRUTE   (3, 0),
+      GREATER_DEMON        (4, 0),
+      DEMON_BRUTE          (5, 0),
+      DEMON_WATCHER        (6, 0),
+      DEMON_WORM           (7, 0),
+      AMORPHOUS_DEMON      (8, 0),
+      DRAGON               (9, 0),
+
+      // animal
+      RAT                  (0, 0),
+      SPIDER               (1, 0),
+      BAT                  (2, 0),
+      WOLF                 (3, 0),
+      SCORPION             (4, 0);
       
       public int[][] sheetLocation;
       
