@@ -34,7 +34,8 @@ public interface GUIConstants
    
    // color groups
    public static final Color[] RED_GROUP = {new Color(142, 32, 32), new Color(185, 26, 26), new Color(255, 0, 0)};
-   public static final Color[] GREEN_GROUP = {new Color(22, 133, 53), new Color(30, 186, 74), new Color(23, 227, 90)};
+   public static final Color[] GREEN_GROUP = {new Color(17, 104, 42), new Color(22, 133, 53), new Color(30, 185, 74)};
+   public static final Color[] LIGHT_GREEN_GROUP = {new Color(22, 133, 53), new Color(30, 186, 74), new Color(23, 227, 90)};
    public static final Color[] BLUE_GROUP = {new Color(11, 94, 135), new Color(14, 123, 178), new Color(60, 188, 252)};
    public static final Color[] LIGHT_BLUE_GROUP = {new Color(61, 139, 179), new Color(129, 198, 226), new Color(187, 231, 253)};
    public static final Color[] YELLOW_GROUP = {new Color(168, 148, 32), new Color(232, 190, 0), new Color(228, 230, 16)};

@@ -11,7 +11,7 @@ import javax.imageio.*;
 public class ColorUnifier implements GUIConstants
 {
    public static final int precision = 5;
-   public static final Color[][] colorList = {RED_GROUP, GREEN_GROUP, BLUE_GROUP, LIGHT_BLUE_GROUP, YELLOW_GROUP, ORANGE_GROUP,
+   public static final Color[][] colorList = {RED_GROUP, GREEN_GROUP, LIGHT_GREEN_GROUP, BLUE_GROUP, LIGHT_BLUE_GROUP, YELLOW_GROUP, ORANGE_GROUP,
                                               PURPLE_GROUP, BLACK_GROUP, WHITE_GROUP, GREY_GROUP, BROWN_GROUP, 
                                               DARK_FLESH_GROUP, MEDIUM_FLESH_GROUP, LIGHT_FLESH_GROUP, ROTTEN_FLESH_GROUP, DEMON_FLESH_GROUP};
 

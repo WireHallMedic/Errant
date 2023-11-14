@@ -25,7 +25,7 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    private boolean imageToggle;
    private BufferedImage strip;
    
-   private String[] colorDDStr = {"Red", "Green", "Blue", "Light Blue", "Yellow", "Orange", "Purple", "Black", "White", "Grey", 
+   private String[] colorDDStr = {"Red", "Green", "Light Green", "Blue", "Light Blue", "Yellow", "Orange", "Purple", "Black", "White", "Grey", 
                                   "Brown", "Dark Flesh", "Medium Flesh", "Light Flesh", "Rotten Flesh", "Demon Flesh"};
    private String[] spriteDDStr = {"Animals", "Cultists", "Demons", "Undead"};
    
@@ -139,6 +139,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          return RED_GROUP;
       if(str.equals("Green")) 
          return GREEN_GROUP;
+      if(str.equals("Light Green")) 
+         return LIGHT_GREEN_GROUP;
       if(str.equals("Blue")) 
          return BLUE_GROUP;
       if(str.equals("Light Blue")) 

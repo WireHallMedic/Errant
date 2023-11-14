@@ -36,7 +36,7 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
    private String[] mainHDDStr = {"Nothing", "Knife", "Sword", "2H Sword", "Mace", "Hammer", "2H Hammer", "Axe", "2hAxe", "Bow", "Spear", "Wand", "Staff"};
    private String[] offHDDStr = {"Nothing", "Small Shield", "Large Shield", "Knife", "Sword", "Mace", "Hammer", "Axe", "Orb"};
    private String[] hairDDStr = {"Brown Hair", "Blonde Hair", "Black Hair", "Red Hair"};
-   private String[] colorDDStr = {"Red", "Green", "Blue", "Light Blue", "Yellow", "Purple", "Orange", "Brown", "Grey", "Black", "White"};
+   private String[] colorDDStr = {"Red", "Green", "Light Green", "Blue", "Light Blue", "Yellow", "Purple", "Orange", "Brown", "Grey", "Black", "White"};
    private String[] skinDDStr = {"Light", "Medium", "Dark", "Undead", "Demon"};
    
    private Color[][] colorGroup = {
