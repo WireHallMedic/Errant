@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import Errant.GUI.*;
 
-public class PaperDoll extends JPanel implements ActionListener
+public class PaperDoll extends JPanel implements ActionListener, GUIConstants
 {
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
@@ -36,18 +36,21 @@ public class PaperDoll extends JPanel implements ActionListener
    private String[] mainHDDStr = {"Nothing", "Knife", "Sword", "2H Sword", "Mace", "Hammer", "2H Hammer", "Axe", "2hAxe", "Bow", "Spear", "Wand", "Staff"};
    private String[] offHDDStr = {"Nothing", "Small Shield", "Large Shield", "Knife", "Sword", "Mace", "Hammer", "Axe", "Orb"};
    private String[] hairDDStr = {"Brown Hair", "Blonde Hair", "Black Hair", "Red Hair"};
-   private String[] colorDDStr = {"Red", "Green", "Blue", "Yellow", "Purple", "Orange", "Black", "White"};
-   private String[] skinDDStr = {"Light", "Medium", "Dark"};
+   private String[] colorDDStr = {"Red", "Green", "Blue", "Light Blue", "Yellow", "Purple", "Orange", "Brown", "Grey", "Black", "White"};
+   private String[] skinDDStr = {"Light", "Medium", "Dark", "Undead", "Demon"};
    
-   private int[][] colorPair = {
-      {new Color(255, 1, 1).getRGB(), new Color(186, 27, 27).getRGB()},       // red off-by-one to avoid collisions
-      {new Color(37, 228, 91).getRGB(), new Color(31, 187, 76).getRGB()},     // green off-by-one to avoid collisions
-      {new Color(154, 220, 253).getRGB(), new Color(60, 188, 252).getRGB()},  // blue
-      {new Color(255, 241, 112).getRGB(), new Color(204, 193, 89).getRGB()},  // yellow
-      {new Color(156, 14, 179).getRGB(), new Color(119, 13, 137).getRGB()},   // purple
-      {new Color(255, 192, 32).getRGB(), new Color(255, 120, 0).getRGB()},    // orange
-      {new Color(89, 89, 89).getRGB(), new Color(61, 61, 61).getRGB()},       // black
-      {new Color(243, 243, 243).getRGB(), new Color(201, 201, 201).getRGB()}  // white
+   private Color[][] colorGroup = {
+      RED_GROUP,
+      GREEN_GROUP,
+      BLUE_GROUP,
+      LIGHT_BLUE_GROUP,
+      YELLOW_GROUP,
+      PURPLE_GROUP,
+      ORANGE_GROUP,
+      BROWN_GROUP,
+      GREY_GROUP,
+      BLACK_GROUP,
+      WHITE_GROUP
    };
    
    private int[] lightSkin = {new Color(255, 236, 217).getRGB(), new Color(255, 209, 166).getRGB()};
@@ -111,7 +114,7 @@ public class PaperDoll extends JPanel implements ActionListener
       primaryDD.setSelectedIndex(5);
       secondaryDD.setSelectedIndex(2);
       
-      timer = new javax.swing.Timer(333, this);
+      timer = new javax.swing.Timer(500, this);
       timer.start();
    }
    
@@ -153,21 +156,8 @@ public class PaperDoll extends JPanel implements ActionListener
       l1 = colorPrimary(l1);
       l1 = colorSecondary(l1);
       
-      // head
-      BufferedImage temp = ImageTools.getFromSheet(headStrip, headIndex, 0, 24, 24);
-      temp = ImageTools.scale(temp, 192, 192);
-      temp = colorHair(temp);
-      temp = colorPrimary(temp);
-      temp = colorSecondary(temp);
-      l0 = ImageTools.overlay(l0, temp);
-      temp = ImageTools.getFromSheet(headStrip, headIndex, 1, 24, 24);
-      temp = ImageTools.scale(temp, 192, 192);
-      temp = colorHair(temp);
-      temp = colorPrimary(temp);
-      temp = colorSecondary(temp);
-      l1 = ImageTools.overlay(l1, temp);
-      
-      // main hand
+      BufferedImage temp;
+      // main hand (to be behind head)
       if(weaponIndex > -1)
       {
          temp = ImageTools.getFromSheet(gearStrip, weaponIndex, 0, 24, 24);
@@ -181,6 +171,20 @@ public class PaperDoll extends JPanel implements ActionListener
          temp = colorSecondary(temp);
          l1 = ImageTools.overlay(l1, temp);
       }
+      
+      // head
+      temp = ImageTools.getFromSheet(headStrip, headIndex, 0, 24, 24);
+      temp = ImageTools.scale(temp, 192, 192);
+      temp = colorHair(temp);
+      temp = colorPrimary(temp);
+      temp = colorSecondary(temp);
+      l0 = ImageTools.overlay(l0, temp);
+      temp = ImageTools.getFromSheet(headStrip, headIndex, 1, 24, 24);
+      temp = ImageTools.scale(temp, 192, 192);
+      temp = colorHair(temp);
+      temp = colorPrimary(temp);
+      temp = colorSecondary(temp);
+      l1 = ImageTools.overlay(l1, temp);
       
       // off hand
       if(shieldIndex > -1)
@@ -214,41 +218,39 @@ public class PaperDoll extends JPanel implements ActionListener
    
    private BufferedImage colorPrimary(BufferedImage img)
    {
-      int[] newColors = colorPair[primaryDD.getSelectedIndex()];
-      int lightGreen = new Color(36, 227, 90).getRGB();
-      int darkGreen = new Color(30, 186, 74).getRGB();
-      img = ImageTools.replaceColor(img, lightGreen, newColors[0]);
-      img = ImageTools.replaceColor(img, darkGreen, newColors[1]);
-      return img;
+      Color[] newColors = colorGroup[primaryDD.getSelectedIndex()];
+      Color[] oldColors = ORANGE_GROUP;
+      return ImageTools.replaceColor(img, oldColors, newColors);
    }
    
    private BufferedImage colorSecondary(BufferedImage img)
    {
-      int[] newColors = colorPair[secondaryDD.getSelectedIndex()];
-      int lightRed = new Color(255, 0, 0).getRGB();
-      int darkRed = new Color(186, 26, 26).getRGB();
-      img = ImageTools.replaceColor(img, lightRed, newColors[0]);
-      img = ImageTools.replaceColor(img, darkRed, newColors[1]);
-      return img;
+      Color[] newColors = colorGroup[secondaryDD.getSelectedIndex()];
+      Color[] oldColors = LIGHT_BLUE_GROUP;
+      return ImageTools.replaceColor(img, oldColors, newColors);
    }
    
    private BufferedImage colorSkin(BufferedImage img)
    {
-      int[] colorPair = mediumSkin;
+      Color[] colorGroup = MEDIUM_FLESH_GROUP;
       switch(skinDD.getSelectedIndex())
       {
          // light
-         case 0 : colorPair = lightSkin;
+         case 0 : colorGroup = LIGHT_FLESH_GROUP;
                   break;
          // medium
          case 1 : return img;
          // dark
-         case 2 : colorPair = darkSkin;
+         case 2 : colorGroup = DARK_FLESH_GROUP;
+                  break;
+         // undead
+         case 3 : colorGroup = ROTTEN_FLESH_GROUP;
+                  break;
+         // demon
+         case 4 : colorGroup = DEMON_FLESH_GROUP;
                   break;
       }
-      img = ImageTools.replaceColor(img, mediumSkin[0], colorPair[0]);
-      img = ImageTools.replaceColor(img, mediumSkin[1], colorPair[1]);
-      return img;
+      return ImageTools.replaceColor(img, MEDIUM_FLESH_GROUP, colorGroup);
    }
    
    private BufferedImage colorHair(BufferedImage img)
