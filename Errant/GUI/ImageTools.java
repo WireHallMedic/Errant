@@ -61,6 +61,7 @@ public class ImageTools implements ToolConstants
       return newImg;
    }
    
+   // returns a copy replacing colors in the first group with those in the second
    public static BufferedImage replaceColor(BufferedImage img, Color[] oldGroup, Color[] newGroup)
    {
       BufferedImage newImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
