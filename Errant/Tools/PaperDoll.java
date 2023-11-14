@@ -147,14 +147,14 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
       int weaponIndex = mainHDD.getSelectedIndex() - 1;
       int shieldIndex = offHDD.getSelectedIndex() - 1;
       // body
-      BufferedImage l0 = ImageTools.getFromSheet(armorStrip, armorIndex, 0, 24, 24);
-      BufferedImage l1 = ImageTools.getFromSheet(armorStrip, armorIndex, 1, 24, 24);
-      l0 = ImageTools.scale(l0, 192, 192);
-      l1 = ImageTools.scale(l1, 192, 192);
-      l0 = colorPrimary(l0);
-      l0 = colorSecondary(l0);
-      l1 = colorPrimary(l1);
-      l1 = colorSecondary(l1);
+      BufferedImage body0 = ImageTools.getFromSheet(armorStrip, armorIndex, 0, 24, 24);
+      BufferedImage body1 = ImageTools.getFromSheet(armorStrip, armorIndex, 1, 24, 24);
+      body0 = ImageTools.scale(body0, 192, 192);
+      body1 = ImageTools.scale(body1, 192, 192);
+      body0 = colorPrimary(body0);
+      body0 = colorSecondary(body0);
+      body1 = colorPrimary(body1);
+      body1 = colorSecondary(body1);
       
       BufferedImage temp;
       // main hand (to be behind head)
@@ -164,27 +164,27 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
          temp = ImageTools.scale(temp, 192, 192);
          temp = colorPrimary(temp);
          temp = colorSecondary(temp);
-         l0 = ImageTools.overlay(l0, temp);
+         body0 = ImageTools.overlay(body0, temp);
          temp = ImageTools.getFromSheet(gearStrip, weaponIndex, 1, 24, 24);
          temp = ImageTools.scale(temp, 192, 192);
          temp = colorPrimary(temp);
          temp = colorSecondary(temp);
-         l1 = ImageTools.overlay(l1, temp);
+         body1 = ImageTools.overlay(body1, temp);
       }
       
       // head
-      temp = ImageTools.getFromSheet(headStrip, headIndex, 0, 24, 24);
-      temp = ImageTools.scale(temp, 192, 192);
-      temp = colorHair(temp);
-      temp = colorPrimary(temp);
-      temp = colorSecondary(temp);
-      l0 = ImageTools.overlay(l0, temp);
-      temp = ImageTools.getFromSheet(headStrip, headIndex, 1, 24, 24);
-      temp = ImageTools.scale(temp, 192, 192);
-      temp = colorHair(temp);
-      temp = colorPrimary(temp);
-      temp = colorSecondary(temp);
-      l1 = ImageTools.overlay(l1, temp);
+      BufferedImage head0 = ImageTools.getFromSheet(headStrip, headIndex, 0, 24, 24);
+      head0 = ImageTools.scale(head0, 192, 192);
+      head0 = colorPrimary(head0);
+      head0 = colorSecondary(head0);
+      head0 = colorHair(head0);
+      body0 = ImageTools.overlay(body0, head0);
+      BufferedImage head1 = ImageTools.getFromSheet(headStrip, headIndex, 1, 24, 24);
+      head1 = ImageTools.scale(head1, 192, 192);
+      head1 = colorPrimary(head1);
+      head1 = colorSecondary(head1);
+      head1 = colorHair(head1);
+      body1 = ImageTools.overlay(body1, head1);
       
       // off hand
       if(shieldIndex > -1)
@@ -193,25 +193,25 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
          temp = ImageTools.scale(temp, 192, 192);
          temp = colorPrimary(temp);
          temp = colorSecondary(temp);
-         l0 = ImageTools.overlay(l0, temp);
+         body0 = ImageTools.overlay(body0, temp);
          temp = ImageTools.getFromSheet(gearStrip, shieldIndex, 3, 24, 24);
          temp = ImageTools.scale(temp, 192, 192);
          temp = colorPrimary(temp);
          temp = colorSecondary(temp);
-         l1 = ImageTools.overlay(l1, temp);
+         body1 = ImageTools.overlay(body1, temp);
       }
       
-      l0 = colorSkin(l0);
-      l1 = colorSkin(l1);
+      body0 = colorSkin(body0);
+      body1 = colorSkin(body1);
       
       // corner dots
       temp = ImageTools.getFromSheet(gearStrip, 11, 3, 24, 24);
       temp = ImageTools.scale(temp, 192, 192);
-      l0 = ImageTools.overlay(l0, temp);
-      l1 = ImageTools.overlay(l1, temp);
+      body0 = ImageTools.overlay(body0, temp);
+      body1 = ImageTools.overlay(body1, temp);
       
-      left_0 = l0;
-      left_1 = l1;
+      left_0 = body0;
+      left_1 = body1;
       right_0 = ImageTools.mirrorHorizontal(left_0);
       right_1 = ImageTools.mirrorHorizontal(left_1);
    }
@@ -255,31 +255,23 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
    
    private BufferedImage colorHair(BufferedImage img)
    {
-      int lightBrown = new Color(184, 150, 0).getRGB();
-      int darkBrown = new Color(136, 112, 0).getRGB();
-      int newLight = lightBrown;
-      int newDark = darkBrown;
+      Color[] colorGroup = BROWN_GROUP;
       
       switch(hairDD.getSelectedIndex())
       {
          // brown
          case 0 : return img;
          // blonde
-         case 1 : newLight = new Color(234, 255, 0).getRGB();
-                  newDark = new Color(232, 190, 0).getRGB();
+         case 1 : colorGroup = YELLOW_GROUP;
                   break;
          // black
-         case 2 : newLight = new Color(105, 105, 105).getRGB();
-                  newDark = new Color(61, 61, 61).getRGB();
+         case 2 : colorGroup = BLACK_GROUP;
                   break;
          // red
-         case 3 : newLight = new Color(255, 104, 74).getRGB();
-                  newDark = new Color(227, 38, 0).getRGB();
+         case 3 : colorGroup = ORANGE_GROUP;
                   break;
       }
-      img = ImageTools.replaceColor(img, lightBrown, newLight);
-      img = ImageTools.replaceColor(img, darkBrown, newDark);
-      return img;
+      return ImageTools.replaceColor(img, BROWN_GROUP, colorGroup);
    }
    
    private class DisplayPanel extends JPanel
