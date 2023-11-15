@@ -43,7 +43,8 @@ public interface GUIConstants
    public static final Color[] PURPLE_GROUP = {new Color(82, 30, 103), new Color(127, 59, 164), new Color(199, 104, 252)};
    public static final Color[] BLACK_GROUP = {new Color(61, 61, 61), new Color(89, 89, 89), new Color(130, 130, 130)};
    public static final Color[] WHITE_GROUP = {new Color(145, 145, 145), new Color(201, 201, 201), new Color(243, 243, 243)};
-   public static final Color[] GREY_GROUP = {new Color(105, 105, 105), new Color(144, 144, 144), new Color(201, 201, 201)};
+   public static final Color[] GREY_GROUP = {new Color(105, 105, 105), new Color(144, 144, 144), new Color(202, 202, 202)};
+   public static final Color[] LIGHT_GREY_GROUP = {new Color(144, 144, 144), new Color(202, 202, 202), new Color(242, 242, 242)};
    public static final Color[] BROWN_GROUP = {new Color(93, 75, 0), new Color(136, 112, 0), new Color(184, 150, 0)};
    public static final Color[] DARK_FLESH_GROUP = {new Color(120, 72, 26), new Color(184, 110, 40), new Color(252, 152, 56)};
    public static final Color[] MEDIUM_FLESH_GROUP = {new Color(184, 110, 40), new Color(252, 152, 56), new Color(255, 209, 166)};

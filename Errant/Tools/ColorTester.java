@@ -11,6 +11,8 @@ import java.io.*;
 public class ColorTester extends JPanel implements ActionListener, GUIConstants
 {
    public static final int SPRITE_SIZE = 96;
+   public static final int FRAME_WIDTH = 600;
+   public static final int FRAME_HEIGHT = 800;
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
    private JComboBox<String> spriteDD;
@@ -26,8 +28,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    private BufferedImage strip;
    
    private String[] colorDDStr = {"Red", "Green", "Light Green", "Blue", "Light Blue", "Yellow", "Orange", "Purple", "Black", "White", "Grey", 
-                                  "Brown", "Dark Flesh", "Medium Flesh", "Light Flesh", "Rotten Flesh", "Demon Flesh"};
-   private String[] spriteDDStr = {"Animals", "Cultists", "Demons", "Undead"};
+                                  "Light Grey", "Brown", "Dark Flesh", "Medium Flesh", "Light Flesh", "Rotten Flesh", "Demon Flesh"};
+   private String[] spriteDDStr = {"Animals", "Cultists", "Demons", "Undead", "Heads", "Bodies", "Gear"};
    
    private javax.swing.Timer timer;
    
@@ -35,8 +37,10 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    public ColorTester()
    {
       super();
-      setLayout(new GridLayout(1, 2));
+      setLayout(null);
       displayPanel = new DisplayPanel();
+      displayPanel.setSize(FRAME_WIDTH * 3 / 4, FRAME_HEIGHT);
+      displayPanel.setLocation(0, 0);
       this.add(displayPanel);
       controlPanel = new JPanel();
       controlPanel.setLayout(new GridLayout(12, 1));
@@ -58,7 +62,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
       copyB = new JButton("Copy to Clipboard");
       copyB.addActionListener(this);
       controlPanel.add(copyB);
-      
+      controlPanel.setSize(FRAME_WIDTH / 4, FRAME_HEIGHT);
+      controlPanel.setLocation(FRAME_WIDTH * 3 / 4, 0);
       this.add(controlPanel);
       
       loadStrips();
@@ -92,6 +97,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    {
       String str = (String)spriteDD.getSelectedItem();
       strip = null;
+      int columns;
+      int rows = 1;
       if(str.equals("Animals"))
          strip = SystemTools.loadImageFromFile("Actors/animals.png");
       if(str.equals("Cultists"))
@@ -100,13 +107,25 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          strip = SystemTools.loadImageFromFile("Actors/demons.png");
       if(str.equals("Undead"))
          strip = SystemTools.loadImageFromFile("Actors/undead.png");
-      int tiles = strip.getWidth() / 24;
+      if(str.equals("Heads"))
+         strip = SystemTools.loadImageFromFile("Actors/paper_doll_heads.png");
+      if(str.equals("Bodies"))
+         strip = SystemTools.loadImageFromFile("Actors/paper_doll_bodies.png");
+      if(str.equals("Gear"))
+      {
+         strip = SystemTools.loadImageFromFile("Actors/paper_doll_gear.png");
+         rows = 2;
+      }
+      columns = strip.getWidth() / 24;
+      int tiles = rows * columns;
       baseStrip1 = new BufferedImage[tiles];
       baseStrip2 = new BufferedImage[tiles];
-      for(int i = 0; i < tiles; i++)
+      for(int y = 0; y < rows; y++)
+      for(int x = 0; x < columns; x++)
       {
-         BufferedImage img1 = ImageTools.getFromSheet(strip, i, 0, 24, 24);
-         BufferedImage img2 = ImageTools.getFromSheet(strip, i, 1, 24, 24);
+         int i = x + (y * columns);
+         BufferedImage img1 = ImageTools.getFromSheet(strip, x, (y * 2), 24, 24);
+         BufferedImage img2 = ImageTools.getFromSheet(strip, x, (y * 2) + 1, 24, 24);
          baseStrip1[i] = ImageTools.scale(img1, SPRITE_SIZE, SPRITE_SIZE);
          baseStrip2[i] = ImageTools.scale(img2, SPRITE_SIZE, SPRITE_SIZE);
       }
@@ -157,6 +176,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          return WHITE_GROUP;
       if(str.equals("Grey")) 
          return GREY_GROUP;
+      if(str.equals("Light Grey")) 
+         return LIGHT_GREY_GROUP;
       if(str.equals("Brown")) 
          return BROWN_GROUP;
       if(str.equals("Dark Flesh")) 
@@ -248,7 +269,7 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    {
       JFrame frame = new JFrame();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setSize(860, 450);
+      frame.setSize(FRAME_WIDTH + 20, FRAME_HEIGHT);
       ColorTester colorTester = new ColorTester();
       frame.add(colorTester);
       frame.setVisible(true);
