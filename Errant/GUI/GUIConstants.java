@@ -52,4 +52,24 @@ public interface GUIConstants
    public static final Color[] ROTTEN_FLESH_GROUP = {new Color(106, 128, 20), new Color(155, 186, 30), new Color(187, 225, 36)};
    public static final Color[] DEMON_FLESH_GROUP = {new Color(160, 58, 62), new Color(201, 69, 73), new Color(243, 82, 84)};
    public static final Color[] INTERMEDIATE_GROUP = {new Color(1, 1, 1), new Color(2, 2, 2), new Color(3, 3, 3)};
+   
+   public enum PaperDollHead
+   {
+      SHORT_HAIR, LONG_HAIR, LIGHT_HELMET, HEAVY_HELMET;
+   }
+   
+   public enum PaperDollBody
+   {
+      CLOTHES, ROBES, ARMOR;
+   }
+   
+   public enum PaperDollMainHand
+   {
+      NOTHING, KNIFE, SWORD, HEAVY_SWORD, MACE, HAMMER, HEAVY_HAMMER, AXE, HEAVY_AXE, BOW, SPEAR, WAND, STAFF;
+   }
+   
+   public enum PaperDollOffHand
+   {
+      NOTHING, SMALL_SHIELD, LARGE_SHIELD, KNIFE, SWORD, MACE, HAMMER, AXE, ORB;
+   }
 }
