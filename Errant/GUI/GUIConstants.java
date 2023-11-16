@@ -53,6 +53,11 @@ public interface GUIConstants
    public static final Color[] DEMON_FLESH_GROUP = {new Color(160, 58, 62), new Color(201, 69, 73), new Color(243, 82, 84)};
    public static final Color[] INTERMEDIATE_GROUP = {new Color(1, 1, 1), new Color(2, 2, 2), new Color(3, 3, 3)};
    
+   // tile sizes
+   public static final int HEAD_TILE_SIZE = 24;
+   public static final int BODY_TILE_SIZE = 24;
+   public static final int GEAR_TILE_SIZE = 24;
+   
    public enum PaperDollHead
    {
       SHORT_HAIR, LONG_HAIR, LIGHT_HELMET, HEAVY_HELMET;
