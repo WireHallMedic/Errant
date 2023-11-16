@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import Errant.GUI.*;
 
-public class PaperDoll extends JPanel implements ActionListener, GUIConstants
+public class PaperDollTest extends JPanel implements ActionListener, GUIConstants
 {
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
@@ -60,7 +60,7 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
    private javax.swing.Timer timer;
    
    
-   public PaperDoll()
+   public PaperDollTest()
    {
       super();
       setLayout(new GridLayout(1, 2));
@@ -310,7 +310,7 @@ public class PaperDoll extends JPanel implements ActionListener, GUIConstants
       JFrame frame = new JFrame();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setSize(500, 250);
-      PaperDoll paperDoll = new PaperDoll();
+      PaperDollTest paperDoll = new PaperDollTest();
       frame.add(paperDoll);
       frame.setVisible(true);
    }
