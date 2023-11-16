@@ -48,16 +48,16 @@ public class PlayerSpriteFactory implements GUIConstants
 	public static Color[] getOffHandColor(){return offHandColor;}
 
 
-	public static void setHeadType(PaperDollHead h){headType = h;}
-	public static void setBodyType(PaperDollBody b){bodyType = b;}
-	public static void setMainHandType(PaperDollMainHand m){mainHandType = m;}
-	public static void setOffHandType(PaperDollOffHand o){offHandType = o;}
-	public static void setPrimaryColor(Color[] p){primaryColor = p;}
-	public static void setSecondaryColor(Color[] s){secondaryColor = s;}
-	public static void setHairColor(Color[] h){hairColor = h;}
-	public static void setSkinColor(Color[] s){skinColor = s;}
-	public static void setMainHandColor(Color[] m){mainHandColor = m;}
-	public static void setOffHandColor(Color[] o){offHandColor = o;}
+	public static void setHeadType(PaperDollHead h){headType = h; loadBases();}
+	public static void setBodyType(PaperDollBody b){bodyType = b; loadBases();}
+	public static void setMainHandType(PaperDollMainHand m){mainHandType = m; loadBases();}
+	public static void setOffHandType(PaperDollOffHand o){offHandType = o; loadBases();}
+	public static void setPrimaryColor(Color[] p){primaryColor = p; generate();}
+	public static void setSecondaryColor(Color[] s){secondaryColor = s; generate();}
+	public static void setHairColor(Color[] h){hairColor = h; generate();}
+	public static void setSkinColor(Color[] s){skinColor = s; generate();}
+	public static void setMainHandColor(Color[] m){mainHandColor = m; generate();}
+	public static void setOffHandColor(Color[] o){offHandColor = o; generate();}
 
 
    private static void loadBases()
@@ -146,13 +146,15 @@ public class PlayerSpriteFactory implements GUIConstants
          strip0[OFF_HAND] = null;
          strip1[OFF_HAND] = null;
       }
-      stack();
    }
    
-   public static ActorImage stack()
+   public static ActorImage getImage()
    {
-      if(baseStrip == null)
+      if(baseStrip0 == null)
          loadBases();
+      if(strip0 == null)
+         generate();
+         
       BufferedImage left0 = strip0[BODY];
       BufferedImage left1 = strip1[BODY];
       if(strip0[MAIN_HAND] != null)

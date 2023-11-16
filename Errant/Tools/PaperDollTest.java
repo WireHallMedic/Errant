@@ -302,6 +302,11 @@ public class PaperDollTest extends JPanel implements ActionListener, GUIConstant
             else
                g2d.drawImage(right_1, 10, 10, null);
          }
+         
+         PlayerSpriteFactory psf = new PlayerSpriteFactory();
+         ActorImage ai = psf.getImage();
+         ai.setSize(192);
+         g2d.drawImage(ai.getImage(), 10, 202, null);
       }
    }
    
@@ -309,7 +314,7 @@ public class PaperDollTest extends JPanel implements ActionListener, GUIConstant
    {
       JFrame frame = new JFrame();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setSize(500, 250);
+      frame.setSize(500, 500);
       PaperDollTest paperDoll = new PaperDollTest();
       frame.add(paperDoll);
       frame.setVisible(true);

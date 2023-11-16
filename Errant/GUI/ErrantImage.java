@@ -61,6 +61,7 @@ public class ErrantImage
    
 	public void setWidth(int w){setSize(w, height);}
 	public void setHeight(int h){setSize(width, h);}
+   public void setSize(int tileSize){setSize(tileSize, tileSize);}
    public void setSize(int w, int h)
    {
       width = w;
