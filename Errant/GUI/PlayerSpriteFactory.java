@@ -20,6 +20,7 @@ public class PlayerSpriteFactory implements GUIConstants
    private static final BufferedImage BODY_SPRITE_SHEET = SystemTools.loadImageFromFile("Actors/paper_doll_bodies.png");
    private static final BufferedImage GEAR_SPRITE_SHEET = SystemTools.loadImageFromFile("Actors/paper_doll_gear.png");
    
+   private static int size = 24;
 	private static PaperDollHead headType = PaperDollHead.SHORT_HAIR;
 	private static PaperDollBody bodyType = PaperDollBody.CLOTHES;
 	private static PaperDollMainHand mainHandType = PaperDollMainHand.NOTHING;
@@ -36,6 +37,7 @@ public class PlayerSpriteFactory implements GUIConstants
    private static BufferedImage[] strip1 = null;
 
 
+   public static int getSize(){return size;}
 	public static PaperDollHead getHeadType(){return headType;}
 	public static PaperDollBody getBodyType(){return bodyType;}
 	public static PaperDollMainHand getMainHandType(){return mainHandType;}
@@ -48,6 +50,7 @@ public class PlayerSpriteFactory implements GUIConstants
 	public static Color[] getOffHandColor(){return offHandColor;}
 
 
+   public static void setSize(int s){size = s;}
 	public static void setHeadType(PaperDollHead h){headType = h; loadBases();}
 	public static void setBodyType(PaperDollBody b){bodyType = b; loadBases();}
 	public static void setMainHandType(PaperDollMainHand m){mainHandType = m; loadBases();}
@@ -73,8 +76,8 @@ public class PlayerSpriteFactory implements GUIConstants
       
       if(mainHandType != PaperDollMainHand.NOTHING)
       {
-         baseStrip0[MAIN_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, mainHandType.ordinal(), 0, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
-         baseStrip1[MAIN_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, mainHandType.ordinal(), 1, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
+         baseStrip0[MAIN_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, mainHandType.ordinal() - 1, 0, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
+         baseStrip1[MAIN_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, mainHandType.ordinal() - 1, 1, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
       }
       else
       {
@@ -84,8 +87,8 @@ public class PlayerSpriteFactory implements GUIConstants
       
       if(offHandType != PaperDollOffHand.NOTHING)
       {
-         baseStrip0[OFF_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, offHandType.ordinal(), 2, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
-         baseStrip1[OFF_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, offHandType.ordinal(), 3, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
+         baseStrip0[OFF_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, offHandType.ordinal() - 1, 2, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
+         baseStrip1[OFF_HAND] = ImageTools.getFromSheet(GEAR_SPRITE_SHEET, offHandType.ordinal() - 1, 3, GEAR_TILE_SIZE, GEAR_TILE_SIZE);
       }
       else
       {
@@ -96,6 +99,9 @@ public class PlayerSpriteFactory implements GUIConstants
    
    private static void generate()
    {
+      if(baseStrip0 == null)
+         loadBases();
+         
       strip0 = new BufferedImage[4];
       strip1 = new BufferedImage[4];
       
@@ -106,6 +112,8 @@ public class PlayerSpriteFactory implements GUIConstants
       strip1[HEAD] = ImageTools.replaceColor(strip1[HEAD], BASE_HAIR_COLOR, hairColor);
       strip0[HEAD] = ImageTools.replaceColor(strip0[HEAD], INTERMEDIATE_GROUP, skinColor);
       strip1[HEAD] = ImageTools.replaceColor(strip1[HEAD], INTERMEDIATE_GROUP, skinColor);
+      strip0[HEAD] = ImageTools.replaceColor(strip0[HEAD], BASE_SECONDARY_COLOR, secondaryColor);
+      strip1[HEAD] = ImageTools.replaceColor(strip1[HEAD], BASE_SECONDARY_COLOR, secondaryColor);
       
       // body
       strip0[BODY] = ImageTools.replaceColor(baseStrip0[BODY], BASE_SECONDARY_COLOR, INTERMEDIATE_GROUP);
@@ -150,8 +158,6 @@ public class PlayerSpriteFactory implements GUIConstants
    
    public static ActorImage getImage()
    {
-      if(baseStrip0 == null)
-         loadBases();
       if(strip0 == null)
          generate();
          
@@ -169,6 +175,8 @@ public class PlayerSpriteFactory implements GUIConstants
          left0 = ImageTools.overlay(left0, strip0[OFF_HAND]);
          left1 = ImageTools.overlay(left1, strip1[OFF_HAND]);
       }
-      return new ActorImage(left0, left1);
+      ActorImage actorImage = new ActorImage(left0, left1);
+      actorImage.setSize(size);
+      return actorImage;
    }
 }
