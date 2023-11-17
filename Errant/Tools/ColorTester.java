@@ -11,8 +11,8 @@ import java.io.*;
 public class ColorTester extends JPanel implements ActionListener, GUIConstants
 {
    public static final int SPRITE_SIZE = 96;
-   public static final int FRAME_WIDTH = 600;
-   public static final int FRAME_HEIGHT = 800;
+   public static final int FRAME_WIDTH = 850;
+   public static final int FRAME_HEIGHT = 1000;
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
    private JComboBox<String> spriteDD;
@@ -28,8 +28,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    private BufferedImage strip;
    
    private String[] colorDDStr = {"Red", "Green", "Light Green", "Blue", "Light Blue", "Yellow", "Orange", "Purple", "Black", "White", "Grey", 
-                                  "Light Grey", "Brown", "Dark Flesh", "Medium Flesh", "Light Flesh", "Rotten Flesh", "Demon Flesh"};
-   private String[] spriteDDStr = {"Animals", "Cultists", "Demons", "Undead", "Heads", "Bodies", "Gear"};
+                                  "Light Grey", "Gold", "Brown", "Dark Flesh", "Medium Flesh", "Light Flesh", "Rotten Flesh", "Demon Flesh"};
+   private String[] spriteDDStr = {"Animals", "Cultists", "Demons", "Undead", "Heads", "Bodies", "Gear", "Items"};
    
    private javax.swing.Timer timer;
    
@@ -97,8 +97,10 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
    {
       String str = (String)spriteDD.getSelectedItem();
       strip = null;
+      int secondRow = 1; // 0 if not animated, 1 if animated
+      int tileSize = 24;
       int columns;
-      int rows = 1;
+      int rows;
       if(str.equals("Animals"))
          strip = SystemTools.loadImageFromFile("Actors/animals.png");
       if(str.equals("Cultists"))
@@ -116,7 +118,14 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          strip = SystemTools.loadImageFromFile("Actors/paper_doll_gear.png");
          rows = 2;
       }
-      columns = strip.getWidth() / 24;
+      if(str.equals("Items"))
+      {
+         strip = SystemTools.loadImageFromFile("Items/items.png");
+         secondRow = 0;
+         tileSize = 16;
+      }
+      columns = strip.getWidth() / tileSize;
+      rows = strip.getHeight() / (tileSize * (1 + secondRow));
       int tiles = rows * columns;
       baseStrip1 = new BufferedImage[tiles];
       baseStrip2 = new BufferedImage[tiles];
@@ -124,8 +133,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
       for(int x = 0; x < columns; x++)
       {
          int i = x + (y * columns);
-         BufferedImage img1 = ImageTools.getFromSheet(strip, x, (y * 2), 24, 24);
-         BufferedImage img2 = ImageTools.getFromSheet(strip, x, (y * 2) + 1, 24, 24);
+         BufferedImage img1 = ImageTools.getFromSheet(strip, x, (y * (1 + secondRow)), tileSize, tileSize);
+         BufferedImage img2 = ImageTools.getFromSheet(strip, x, (y * (1 + secondRow)) + secondRow, tileSize, tileSize);
          baseStrip1[i] = ImageTools.scale(img1, SPRITE_SIZE, SPRITE_SIZE);
          baseStrip2[i] = ImageTools.scale(img2, SPRITE_SIZE, SPRITE_SIZE);
       }
@@ -180,6 +189,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          return LIGHT_GREY_GROUP;
       if(str.equals("Brown")) 
          return BROWN_GROUP;
+      if(str.equals("Gold")) 
+         return GOLD_GROUP;
       if(str.equals("Dark Flesh")) 
          return DARK_FLESH_GROUP;
       if(str.equals("Medium Flesh")) 
@@ -255,8 +266,8 @@ public class ColorTester extends JPanel implements ActionListener, GUIConstants
          Graphics2D g2d = (Graphics2D)g;
          for(int i = 0; i < imageStrip1.length; i++)
          {
-            int xLoc = i % 4;
-            int yLoc = i / 4;
+            int xLoc = i % 6;
+            int yLoc = i / 6;
             if(imageToggle)
                g2d.drawImage(imageStrip1[i], 10 + (xLoc * (SPRITE_SIZE + 5)), yLoc * (SPRITE_SIZE + 5), null);
             else

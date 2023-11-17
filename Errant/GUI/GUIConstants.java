@@ -45,6 +45,7 @@ public interface GUIConstants
    public static final Color[] WHITE_GROUP = {new Color(145, 145, 145), new Color(201, 201, 201), new Color(243, 243, 243)};
    public static final Color[] GREY_GROUP = {new Color(105, 105, 105), new Color(144, 144, 144), new Color(202, 202, 202)};
    public static final Color[] LIGHT_GREY_GROUP = {new Color(144, 144, 144), new Color(202, 202, 202), new Color(242, 242, 242)};
+   public static final Color[] GOLD_GROUP = {new Color(215, 180, 0), new Color(255, 215, 0), new Color(255, 235, 0)};
    public static final Color[] BROWN_GROUP = {new Color(93, 75, 0), new Color(136, 112, 0), new Color(184, 150, 0)};
    public static final Color[] DARK_FLESH_GROUP = {new Color(120, 72, 26), new Color(184, 110, 40), new Color(252, 152, 56)};
    public static final Color[] MEDIUM_FLESH_GROUP = {new Color(184, 110, 40), new Color(252, 152, 56), new Color(255, 209, 166)};
@@ -76,5 +77,43 @@ public interface GUIConstants
    public enum PaperDollOffHand
    {
       NOTHING, SMALL_SHIELD, LARGE_SHIELD, KNIFE, SWORD, MACE, HAMMER, AXE, ORB;
+   }
+   
+   public enum TerrainStripIndex
+   {
+      BLOCK                (0),
+      BLOCK_ALTERNATE_1    (1),
+      BLOCK_ALTERNATE_2    (2),
+      FLOOR                (3),
+      FLOOR_ALTERNATE_1    (4),
+      FLOOR_ALTERNATE_2    (5),
+      FLOOR_ALTERNATE_3    (6),
+      STAIRS_UP            (7),
+      STARIS_DOWN          (8),
+      WALL_                (9),
+      WALL_E               (10),
+      WALL_EW              (11),
+      WALL_W               (12),
+      WALL_S               (13),
+      WALL_NS              (14),
+      WALL_N               (15),
+      WALL_ES              (16),
+      WALL_SW              (17),
+      WALL_NE              (18),
+      WALL_NW              (19),
+      WALL_NESW            (20),
+      WALL_ESW             (21),
+      WALL_NSW             (22),
+      WALL_NES             (23),
+      WALL_NEW             (24),
+      WALL_NS_ALTERNATE_1  (25),
+      WALL_EW_ALTERNATE_1  (26);
+      
+      public int xLoc;
+      
+      private TerrainStripIndex(int x)
+      {
+         xLoc = x;
+      }
    }
 }

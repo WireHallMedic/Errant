@@ -10,4 +10,6 @@ public interface MapConstants
    public static final char CHEST = 'c';
    public static final char STAIRS_UP = '>';
    public static final char STAIRS_DOWN = '<';
+   
+   
 }
