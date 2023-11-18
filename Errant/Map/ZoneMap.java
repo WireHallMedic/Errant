@@ -19,12 +19,22 @@ public class ZoneMap implements MapConstants
 
    public ZoneMap(int w, int h)
    {
-      tileIndex = new char[w][h];
       width = w;
       height = h;
+      tileIndex = new char[width][height];
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
          tileIndex[x][y] = EMPTY;
+   }
+   
+   public ZoneMap(char[][] charMap)
+   {
+      width = charMap.length;
+      height = charMap[0].length;
+      tileIndex = new char[width][height];
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         tileIndex[x][y] = charMap[x][y];
    }
    
    public boolean isInBounds(int x, int y)
@@ -45,5 +55,28 @@ public class ZoneMap implements MapConstants
       if(isInBounds(x, y))
          tileIndex[x][y] = c;
    }
-
+   
+   
+   // testing methods
+   public static char[][] getTestArray()
+   {
+      char[][] val =
+      {  
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#'},
+         {'#', '.', '.', '.', '#', '.', '#', '.', '#'},
+         {'#', '#', '#', '.', '#', '.', '#', '#', '#'},
+         {'#', '.', '#', '.', '#', '.', '.', '.', '#'},
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#'},
+         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
+         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
+         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#'}
+      };
+      return val;
+   }
+   
+   public static ZoneMap getTestMap()
+   {
+      return new ZoneMap(getTestArray());
+   }
 }
