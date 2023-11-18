@@ -116,4 +116,37 @@ public interface GUIConstants
          xLoc = x;
       }
    }
+   
+   public enum TerrainStyleIndex
+   {
+      STANDARD             (0),
+      STANDARD_DEGRADED    (1),
+      STANDARD_BROWN       (2),
+      RED_CLAY             (3),
+      ORNATE               (4),
+      JADE                 (5),
+      TURQUOISE            (6),
+      BLUE                 (7),
+      GOLD                 (8),
+      SEWER                (9),
+      RIVETED              (10),
+      EXTERIOR             (11),
+      EXTERIOR_GARDEN      (12),
+      EARTH                (13),
+      HEDGE                (14),
+      SKULLS               (15),
+      FENCE                (16),
+      SNOWY                (17),
+      SNOWY_HEAVY          (18),
+      BROKEN_STONE_BEIGE   (20),
+      BROKEN_STONE         (21),
+      BROKEN_STONE_RED     (22);
+      
+      public int yLoc;
+      
+      private TerrainStyleIndex(int y)
+      {
+         yLoc = y;
+      }
+   }
 }
