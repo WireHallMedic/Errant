@@ -39,8 +39,8 @@ public class ZoneMap implements MapConstants
    
    public boolean isInBounds(int x, int y)
    {
-      return x > 0 && x < width &&
-             y > 0 && y < height;
+      return x >= 0 && x < width &&
+             y >= 0 && y < height;
    }
    
    public char getTileIndex(int x, int y)
@@ -56,21 +56,36 @@ public class ZoneMap implements MapConstants
          tileIndex[x][y] = c;
    }
    
+   // returns if there are walls [north, east, south, west]
+   public boolean[] getAdjacentWallArray(int x, int y)
+   {
+      boolean[] result = {false, false, false, false};
+      if(getTileIndex(x, y - 1) == WALL)
+         result[0] = true;
+      if(getTileIndex(x + 1, y) == WALL)
+         result[1] = true;
+      if(getTileIndex(x, y + 1) == WALL)
+         result[2] = true;
+      if(getTileIndex(x - 1, y) == WALL)
+         result[3] = true;
+      return result;
+   }
+   
    
    // testing methods
    public static char[][] getTestArray()
    {
       char[][] val =
       {  
-         {'#', '#', '#', '#', '#', '#', '#', '#', '#'},
-         {'#', '.', '.', '.', '#', '.', '#', '.', '#'},
-         {'#', '#', '#', '.', '#', '.', '#', '#', '#'},
-         {'#', '.', '#', '.', '#', '.', '.', '.', '#'},
-         {'#', '#', '#', '#', '#', '#', '#', '#', '#'},
-         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
-         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
-         {'#', '.', '.', '.', '#', '.', '.', '.', '#'},
-         {'#', '#', '#', '#', '#', '#', '#', '#', '#'}
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+         {'#', '.', '.', '.', '#', '.', '.', '.', '#', '.', '.', '.', '#'},
+         {'#', '.', '#', '.', '#', '.', '#', '#', '#', '#', '#', '.', '#'},
+         {'#', '.', '.', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#'},
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+         {'#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#'},
+         {'#', '#', '.', '#', '#', '.', '#', '#', '#', '#', '#', '.', '#'},
+         {'#', '.', '#', '.', '#', '.', '.', '.', '#', '.', '.', '.', '#'},
+         {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
       };
       return val;
    }

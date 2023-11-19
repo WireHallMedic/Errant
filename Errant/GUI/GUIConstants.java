@@ -126,7 +126,7 @@ public interface GUIConstants
       ORNATE               (4),
       JADE                 (5),
       TURQUOISE            (6),
-      BLUE                 (7),
+      MAUSOLEUM            (7),
       GOLD                 (8),
       SEWER                (9),
       RIVETED              (10),
