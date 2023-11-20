@@ -83,4 +83,28 @@ public class MapImage
          return fgImageArray[x][y];
       return null;
    }
+   
+   
+   public void paintBG(Graphics2D g2d)
+   {
+      if(baseBGImage != null)
+         g2d.drawImage(baseBGImage, 0, 0, null);
+      for(int x = 0; x < columns; x++)
+      for(int y = 0; y < rows; y++)
+      {
+         if(bgImageArray[x][y] != null)
+            bgImageArray[x][y].paintFromCorner(g2d, x * tileSize, y * tileSize);
+      }
+   }
+   
+   
+   public void paintFG(Graphics2D g2d)
+   {
+      for(int x = 0; x < columns; x++)
+      for(int y = 0; y < rows; y++)
+      {
+         if(fgImageArray[x][y] != null)
+            fgImageArray[x][y].paintFromCorner(g2d, x * tileSize, y * tileSize);
+      }
+   }
 }
