@@ -17,6 +17,7 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
    private DisplayPanel displayPanel;
    private JPanel controlPanel;
    private JComboBox<TerrainStyleIndex> styleDD;
+   private JButton toggleB;
    
    private MapImage map;
    
@@ -37,6 +38,9 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
       styleDD = new JComboBox<TerrainStyleIndex>(TerrainStyleIndex.values());
       controlPanel.add(styleDD);
       styleDD.addActionListener(this);
+      toggleB = new JButton("Toggle Door");
+      controlPanel.add(toggleB);
+      toggleB.addActionListener(this);
       this.add(controlPanel);
       
       generateImage();
@@ -44,7 +48,10 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
    
    public void actionPerformed(ActionEvent ae)
    {
-      generateImage();
+      if(ae.getSource() == toggleB)
+         map.toggle(2, 4);
+      else if(ae.getSource() == styleDD)
+         generateImage();
       displayPanel.repaint();
    }
       

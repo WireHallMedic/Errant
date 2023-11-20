@@ -84,6 +84,15 @@ public class MapImage
       return null;
    }
    
+   public void toggle(int x, int y)
+   {
+      if(isInBounds(x, y) && fgImageArray[x][y] instanceof ToggleImage)
+      {
+         ToggleImage ti = (ToggleImage) fgImageArray[x][y];
+         ti.toggle();
+      }
+   }
+   
    
    public void paintBG(Graphics2D g2d)
    {
