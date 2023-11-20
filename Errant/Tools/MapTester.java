@@ -18,7 +18,7 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
    private JPanel controlPanel;
    private JComboBox<TerrainStyleIndex> styleDD;
    
-   private BufferedImage map;
+   private MapImage map;
    
    
    public MapTester()
@@ -66,7 +66,8 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
       {
          super.paint(g);
          Graphics2D g2d = (Graphics2D)g;
-         g2d.drawImage(map, 0, 0, null);
+         map.paintBG(g2d);
+         map.paintFG(g2d);
       }
    }
    

@@ -29,24 +29,37 @@ public class MapImageBuilder implements GUIConstants, MapConstants
    private static final int nESW = EAST + SOUTH + WEST;
    
    
-   public static BufferedImage generateMapImage(ZoneMap map, int tileSize){return generateMapImage(map, TerrainStyleIndex.STANDARD, tileSize);}
-   public static BufferedImage generateMapImage(ZoneMap map, TerrainStyleIndex style, int tileSize)
+   public static MapImage generateMapImage(ZoneMap map, int tileSize){return generateMapImage(map, TerrainStyleIndex.STANDARD, tileSize);}
+   public static MapImage generateMapImage(ZoneMap map, TerrainStyleIndex style, int tileSize)
    {
       int widthTiles = map.getWidth();
       int heightTiles = map.getHeight();
-      BufferedImage mapImage = new BufferedImage(widthTiles * DEFAULT_TERRAIN_SIZE, heightTiles * DEFAULT_TERRAIN_SIZE, BufferedImage.TYPE_INT_ARGB);
-      BufferedImage spriteSheet = SystemTools.loadImageFromFile("Terrain/walls_and_floors.png");
-      Graphics2D g2d = mapImage.createGraphics();
+      BufferedImage mapBI = new BufferedImage(widthTiles * DEFAULT_TERRAIN_SIZE, heightTiles * DEFAULT_TERRAIN_SIZE, BufferedImage.TYPE_INT_ARGB);
+      BufferedImage wallAndFloorTiles = SystemTools.loadImageFromFile("Terrain/walls_and_floors.png");
+      BufferedImage doorTiles = SystemTools.loadImageFromFile("Terrain/doors.png");
+      Graphics2D g2d = mapBI.createGraphics();
       for(int x = 0; x < widthTiles; x++)
       for(int y = 0; y < heightTiles; y++)
       {
-         g2d.drawImage(getTile(map, x, y, spriteSheet, style), x * DEFAULT_TERRAIN_SIZE, y * DEFAULT_TERRAIN_SIZE, null);
+         g2d.drawImage(getBGTile(map, x, y, wallAndFloorTiles, style), x * DEFAULT_TERRAIN_SIZE, y * DEFAULT_TERRAIN_SIZE, null);
       }
       g2d.dispose();
-      return ImageTools.scale(mapImage, widthTiles * tileSize, heightTiles * tileSize);
+      mapBI = ImageTools.scale(mapBI, widthTiles * tileSize, heightTiles * tileSize);
+      MapImage mapImage = new MapImage(mapBI, widthTiles, heightTiles, tileSize);
+      for(int x = 0; x < widthTiles; x++)
+      for(int y = 0; y < heightTiles; y++)
+      {
+         if(map.getTileIndex(x, y) == DOOR)
+         {
+            ToggleImage door = getDoor(doorTiles);
+            door.setSize(tileSize);
+            mapImage.setFGImage(x, y, door);
+         }
+      }
+      return mapImage;
    }
    
-   public static BufferedImage getTile(ZoneMap map, int x, int y, BufferedImage spriteSheet, TerrainStyleIndex style)
+   public static BufferedImage getBGTile(ZoneMap map, int x, int y, BufferedImage spriteSheet, TerrainStyleIndex style)
    {
       char tileIndex = map.getTileIndex(x, y);
       int xIndex = 0;
@@ -89,8 +102,16 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       switch(tileIndex)
       {
          case WALL :    xIndex = TerrainStripIndex.BLOCK.xLoc; break;
+         case DOOR :
          case FLOOR :   xIndex = TerrainStripIndex.FLOOR.xLoc; break;
       }
       return ImageTools.getFromSheet(spriteSheet, xIndex, yIndex, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+   }
+   
+   public static ToggleImage getDoor(BufferedImage spriteSheet)
+   {
+      BufferedImage closedDoor = ImageTools.getFromSheet(spriteSheet, 0, 0, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      BufferedImage openDoor = ImageTools.getFromSheet(spriteSheet, 1, 0, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      return new ToggleImage(closedDoor, openDoor, DEFAULT_TERRAIN_SIZE);
    }
 }
