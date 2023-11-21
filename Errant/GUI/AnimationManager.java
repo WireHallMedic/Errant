@@ -11,6 +11,7 @@ public class AnimationManager implements Runnable, GUIConstants
    public static boolean slowBlink = false;
    public static boolean mediumBlink = false;
    public static boolean fastBlink = false;
+   public static boolean veryFastBlink = false;
    public static double slowPulse = 0.0;
    public static double mediumPulse = 0.0;
    public static double fastPulse = 0.0;
@@ -157,6 +158,8 @@ public class AnimationManager implements Runnable, GUIConstants
             mediumBlink = !mediumBlink;
          if(tickIndex % FAST_BLINK_SPEED == 0)
             fastBlink = !fastBlink;
+         if(tickIndex % VERY_FAST_BLINK_SPEED == 0)
+            veryFastBlink = !veryFastBlink;
       }
       // handle pulses
       pulseIndex += millisElapsed;

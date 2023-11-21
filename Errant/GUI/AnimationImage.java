@@ -57,9 +57,10 @@ public class AnimationImage extends ErrantImage implements GUIConstants
       boolean animationState = false;
       switch(animationSpeed)
       {
-         case SLOW_ANIMATION_SPEED :   animationState = AnimationManager.slowBlink; break;
-         case MEDIUM_ANIMATION_SPEED : animationState = AnimationManager.mediumBlink; break;
-         case FAST_ANIMATION_SPEED :   animationState = AnimationManager.fastBlink; break;
+         case SLOW_ANIMATION_SPEED :         animationState = AnimationManager.slowBlink; break;
+         case MEDIUM_ANIMATION_SPEED :       animationState = AnimationManager.mediumBlink; break;
+         case FAST_ANIMATION_SPEED :         animationState = AnimationManager.fastBlink; break;
+         case VERY_FAST_ANIMATION_SPEED :    animationState = AnimationManager.veryFastBlink; break;
       }
       if(animationState)
          return image;

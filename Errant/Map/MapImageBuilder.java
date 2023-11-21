@@ -36,7 +36,7 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       int heightTiles = map.getHeight();
       BufferedImage mapBI = new BufferedImage(widthTiles * DEFAULT_TERRAIN_SIZE, heightTiles * DEFAULT_TERRAIN_SIZE, BufferedImage.TYPE_INT_ARGB);
       BufferedImage wallAndFloorTiles = SystemTools.loadImageFromFile("Terrain/walls_and_floors.png");
-      BufferedImage doorTiles = SystemTools.loadImageFromFile("Terrain/doors.png");
+      BufferedImage doorTiles = SystemTools.loadImageFromFile("Terrain/animated_and_toggle_tiles.png");
       Graphics2D g2d = mapBI.createGraphics();
       for(int x = 0; x < widthTiles; x++)
       for(int y = 0; y < heightTiles; y++)
@@ -49,12 +49,10 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       for(int x = 0; x < widthTiles; x++)
       for(int y = 0; y < heightTiles; y++)
       {
-         if(map.getTileIndex(x, y) == DOOR)
-         {
-            ToggleImage door = getDoor(doorTiles);
-            door.setSize(tileSize);
-            mapImage.setFGImage(x, y, door);
-         }
+         ErrantImage img = getBGTile(map, x, y, wallAndFloorTiles, doorTiles);
+         if(img != null)
+            img.setSize(tileSize);
+         mapImage.setFGImage(x, y, img);
       }
       return mapImage;
    }
@@ -64,7 +62,7 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       char tileIndex = map.getTileIndex(x, y);
       int xIndex = 0;
       int yIndex = style.yLoc;
-      if(tileIndex == WALL)
+      if(tileIndex == WALL || tileIndex == WALL_TORCH)
       {
          boolean[] adjWalls = map.getAdjacentWallArray(x, y);
          int adjIndex = 0;
@@ -103,9 +101,21 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       {
          case WALL :    xIndex = TerrainStripIndex.BLOCK.xLoc; break;
          case DOOR :
+         case TORCH :
          case FLOOR :   xIndex = TerrainStripIndex.FLOOR.xLoc; break;
       }
       return ImageTools.getFromSheet(spriteSheet, xIndex, yIndex, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+   }
+   
+   public static ErrantImage getBGTile(ZoneMap map, int x, int y, BufferedImage terrainSheet, BufferedImage dualImageSheet)
+   {
+      switch(map.getTileIndex(x, y))
+      {
+         case DOOR :    return getDoor(dualImageSheet);
+         case TORCH :   return getTorch(dualImageSheet);
+         case WALL_TORCH : return getWallTorch(dualImageSheet);
+      }
+      return null;
    }
    
    public static ToggleImage getDoor(BufferedImage spriteSheet)
@@ -113,5 +123,23 @@ public class MapImageBuilder implements GUIConstants, MapConstants
       BufferedImage closedDoor = ImageTools.getFromSheet(spriteSheet, 0, 0, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
       BufferedImage openDoor = ImageTools.getFromSheet(spriteSheet, 1, 0, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
       return new ToggleImage(closedDoor, openDoor, DEFAULT_TERRAIN_SIZE);
+   }
+   
+   public static AnimationImage getTorch(BufferedImage spriteSheet)
+   {
+      BufferedImage torchA = ImageTools.getFromSheet(spriteSheet, 8, 1, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      BufferedImage torchB = ImageTools.getFromSheet(spriteSheet, 9, 1, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      AnimationImage ai = new AnimationImage(torchA, torchB, DEFAULT_TERRAIN_SIZE);
+      ai.setAnimationSpeed(VERY_FAST_ANIMATION_SPEED);
+      return ai;
+   }
+   
+   public static AnimationImage getWallTorch(BufferedImage spriteSheet)
+   {
+      BufferedImage torchA = ImageTools.getFromSheet(spriteSheet, 6, 1, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      BufferedImage torchB = ImageTools.getFromSheet(spriteSheet, 7, 1, DEFAULT_TERRAIN_SIZE, DEFAULT_TERRAIN_SIZE);
+      AnimationImage ai = new AnimationImage(torchA, torchB, DEFAULT_TERRAIN_SIZE);
+      ai.setAnimationSpeed(VERY_FAST_ANIMATION_SPEED);
+      return ai;
    }
 }

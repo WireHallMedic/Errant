@@ -18,8 +18,8 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
    private JPanel controlPanel;
    private JComboBox<TerrainStyleIndex> styleDD;
    private JButton toggleB;
-   
    private MapImage map;
+   private javax.swing.Timer timer;
    
    
    public MapTester()
@@ -42,8 +42,10 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
       controlPanel.add(toggleB);
       toggleB.addActionListener(this);
       this.add(controlPanel);
+      timer = new javax.swing.Timer(1000 / 1000, this);
       
       generateImage();
+      timer.start();
    }
    
    public void actionPerformed(ActionEvent ae)
@@ -86,5 +88,6 @@ public class MapTester extends JPanel implements ActionListener, GUIConstants
       MapTester mapTester = new MapTester();
       frame.add(mapTester);
       frame.setVisible(true);
+      AnimationManager.start();
    }
 }
